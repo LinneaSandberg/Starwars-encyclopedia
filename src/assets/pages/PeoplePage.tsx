@@ -24,7 +24,7 @@ const PeoplePage = () => {
 
     return (
         <div className="main-wrapper">
-            <h2 className="main-title">People Page</h2>
+            <h2 className="main-title">People</h2>
             <div className="card-container">
                 {people && (
                     <>

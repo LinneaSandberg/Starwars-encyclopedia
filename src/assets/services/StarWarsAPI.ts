@@ -36,17 +36,17 @@ export const getPeople = async () => {
 };
 
 /**
- * Get all planets
- */
-export const getPlanets = async () => {
-	return get<PlanetsResponse>("/planets");
-};
-
-/**
  * Get all films
  */
 export const getFilms = async () => {
 	return get<FilmsResponse>("/films");
+};
+
+/**
+ * Get all planets
+ */
+export const getPlanets = async () => {
+	return get<PlanetsResponse>("/planets");
 };
 
 /**

@@ -14,6 +14,22 @@ export interface PeopleResponse {
 	total: number;
 }
 
+export interface FilmsResponse {
+	current_page: number;
+	data: Film[];
+	first_page_url: string;
+	from: number;
+	last_page: number;
+	last_page_url: string;
+	links: Link[];
+	next_page_url: string | null;
+	path: string;
+	per_page: number;
+	prev_page_url: string | null;
+	to: number;
+	total: number;
+}
+
 export interface People {
 	id: number;
 	name: string;
@@ -27,6 +43,21 @@ export interface People {
 	starships_count: number;
 	vehicles_count: number;
 	homeworld: Planet;
+}
+
+export interface Film {
+	id: number;
+	title: string;
+	episode_id: string;
+	opening_crawl: string;
+	director: string;
+	producer: string;
+	release_date: string;
+	characters_count: number;
+	planets_count: number;
+	starships_count: number;
+	vehicles_count: number;
+	species_count: number;
 }
 
 export interface Planet {
@@ -51,8 +82,6 @@ export interface Link {
 }
 
 export interface PlanetsResponse {}
-
-export interface FilmsResponse {}
 
 export interface SpeciesResponse {}
 
