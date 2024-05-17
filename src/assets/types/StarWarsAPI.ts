@@ -1,6 +1,6 @@
 export interface PeopleResponse {
 	current_page: number;
-	data: People[];
+	data: Person[];
 	first_page_url: string;
 	from: number;
 	last_page: number;
@@ -30,7 +30,7 @@ export interface FilmsResponse {
 	total: number;
 }
 
-export interface People {
+export interface Person {
 	id: number;
 	name: string;
 	birth_year: string;
@@ -43,6 +43,10 @@ export interface People {
 	starships_count: number;
 	vehicles_count: number;
 	homeworld: Planet;
+	films: Film[];
+	species: Species[];
+	starships: Starship[];
+	vehicles: Vehicle[];
 }
 
 export interface Film {
@@ -53,11 +57,12 @@ export interface Film {
 	director: string;
 	producer: string;
 	release_date: string;
-	characters_count: number;
-	planets_count: number;
-	starships_count: number;
-	vehicles_count: number;
-	species_count: number;
+	characters_count?: number;
+	planets_count?: number;
+	starships_count?: number;
+	vehicles_count?: number;
+	species_count?: number;
+	characters: Person[];
 }
 
 export interface Planet {
@@ -73,6 +78,21 @@ export interface Planet {
 	population: string;
 	residents_count: number;
 	films_count: number;
+}
+
+export interface Species {
+	id: number;
+	name: string;
+}
+
+export interface Starship {
+	id: number;
+	name: string;
+}
+
+export interface Vehicle {
+	id: number;
+	name: string;
 }
 
 export interface Link {

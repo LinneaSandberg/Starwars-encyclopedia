@@ -85,3 +85,33 @@
     justify-content: center;
     align-items: center;
 }
+
+.single-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    padding: 2rem;
+    max-width: 100%;
+
+    .single-card {
+        background-color: white;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 80%;
+    }
+}
+
+.film-links-list {
+    list-style: url(https://fav.farm/%F0%9F%8E%9E%EF%B8%8F) inside;
+    margin-top: 1rem;
+
+
+    li {
+        margin-bottom: 1rem;
+    }
+}

@@ -3,12 +3,14 @@ import "./assets/scss/App.scss";
 import Navigation from "./assets/components/Navigation";
 import FilmsPage from "./assets/pages/FilmsPage";
 import HomePage from "./assets/pages/HomePage";
-import PeoplePage from "./assets/pages/PeoplePage";
 import PlanetsPage from "./assets/pages/PlanetsPage";
 import SpeciesPage from "./assets/pages/SpeciesPage";
 import StarshipsPage from "./assets/pages/StarshipsPage";
 import VehiclesPage from "./assets/pages/VehiclesPage";
 import NotFoundPage from "./assets/pages/NotFoundPage";
+import FilmPage from "./assets/pages/FilmPage";
+import PersonPage from "./assets/pages/PersonPage";
+import PeoplePage from "./assets/pages/PeoplePage";
 
 
 
@@ -21,7 +23,9 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/films" element={<FilmsPage />} />
+          <Route path="/films/:id" element={<FilmPage />} />
           <Route path="/people" element={<PeoplePage />} />
+          <Route path="/people/:id" element={<PersonPage />} />
           <Route path="/planets" element={<PlanetsPage />} />
           <Route path="/species" element={<SpeciesPage />} />
           <Route path="/starships" element={<StarshipsPage />} />

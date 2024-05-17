@@ -6,8 +6,10 @@
 
 import axios from "axios";
 import {
+	Film,
 	FilmsResponse,
 	PeopleResponse,
+	Person,
 	PlanetsResponse,
 	SpeciesResponse,
 	StarshipsResponse,
@@ -31,8 +33,15 @@ const get = async <T>(endpoint: string) => {
 /**
  * Get all people
  */
-export const getPeople = async () => {
+export const getPeoples = async () => {
 	return get<PeopleResponse>("/people");
+};
+
+/**
+ * Get a single person
+ */
+export const getPerson = async (person_id: number) => {
+	return get<Person>(`/people/${person_id}`);
 };
 
 /**
@@ -40,6 +49,13 @@ export const getPeople = async () => {
  */
 export const getFilms = async () => {
 	return get<FilmsResponse>("/films");
+};
+
+/**
+ * Get a single film
+ */
+export const getFilm = async (film_id: number) => {
+	return get<Film>(`/films/${film_id}`);
 };
 
 /**

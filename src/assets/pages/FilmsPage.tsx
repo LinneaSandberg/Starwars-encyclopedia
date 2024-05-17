@@ -19,6 +19,7 @@ const FilmsPage = () => {
     }, []);
 
 
+
     return (
         <div className="main-wrapper">
             <h2 className="main-title">Films</h2>

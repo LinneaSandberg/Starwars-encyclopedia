@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getPeople } from "../services/StarWarsAPI";
+import { getPeoples } from "../services/StarWarsAPI";
 import { PeopleResponse } from "../types/StarWarsAPI";
 
 
@@ -13,7 +13,7 @@ const PeoplePage = () => {
         setPeople(null);
 
 
-        const data = await getPeople();
+        const data = await getPeoples();
 
         setPeople(data);
     }
