@@ -4,20 +4,33 @@ import { getFilms } from "../services/StarWarsAPI";
 
 
 const FilmsPage = () => {
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | false>(false);
     const [films, setFilms] = useState<FilmsResponse | null>(null);
 
     const getAllFilms = async () => {
+        setError(false);
+        setLoading(true);
         setFilms(null);
 
-        const data = await getFilms();
+        try {
+            const data = await getFilms();
 
-        setFilms(data);
+            setFilms(data);
+        } catch (err) {
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError('An error occurred');
+            }
+        }
+
+        setLoading(false);
     }
 
     useEffect(() => {
         getAllFilms();
     }, []);
-
 
 
     return (
@@ -38,6 +51,10 @@ const FilmsPage = () => {
                     </>
                 )}
             </div>
+
+            {loading && <p>Loading...</p>}
+
+            {error && <p className='error'>{error}</p>}
         </div>
     );
 }

@@ -10,6 +10,7 @@ import {
 	FilmsResponse,
 	PeopleResponse,
 	Person,
+	Planet,
 	PlanetsResponse,
 	SpeciesResponse,
 	StarshipsResponse,
@@ -63,6 +64,13 @@ export const getFilm = async (film_id: number) => {
  */
 export const getPlanets = async () => {
 	return get<PlanetsResponse>("/planets");
+};
+
+/**
+ * Get a single planet
+ */
+export const getPlanet = async (planet_id: number) => {
+	return get<Planet>(`/planets/${planet_id}`);
 };
 
 /**

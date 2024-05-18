@@ -30,6 +30,22 @@ export interface FilmsResponse {
 	total: number;
 }
 
+export interface PlanetsResponse {
+	current_page: number;
+	data: Planet[];
+	first_page_url: string;
+	from: number;
+	last_page: number;
+	last_page_url: string;
+	links: Link[];
+	next_page_url: string | null;
+	path: string;
+	per_page: number;
+	prev_page_url: string | null;
+	to: number;
+	total: number;
+}
+
 export interface Person {
 	id: number;
 	name: string;
@@ -78,6 +94,8 @@ export interface Planet {
 	population: string;
 	residents_count: number;
 	films_count: number;
+	residents: Person[];
+	films: Film[];
 }
 
 export interface Species {
@@ -100,8 +118,6 @@ export interface Link {
 	label: string;
 	active: boolean;
 }
-
-export interface PlanetsResponse {}
 
 export interface SpeciesResponse {}
 

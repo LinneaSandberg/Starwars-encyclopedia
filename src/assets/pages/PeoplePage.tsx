@@ -5,18 +5,31 @@ import { PeopleResponse } from "../types/StarWarsAPI";
 
 
 const PeoplePage = () => {
-    // const [loading, setLoading] = useState<boolean>(false);
-    // const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | false>(false);
     const [people, setPeople] = useState<PeopleResponse | null>(null);
 
     const getAllPeople = async () => {
+        setError(false);
+        setLoading(true);
         setPeople(null);
 
+        try {
+            const data = await getPeoples();
 
-        const data = await getPeoples();
+            setPeople(data);
 
-        setPeople(data);
+        } catch (err) {
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError('An error occurred');
+            }
+        }
+
+        setLoading(false);
     }
+
 
     useEffect(() => {
         getAllPeople();
@@ -26,6 +39,7 @@ const PeoplePage = () => {
         <div className="main-wrapper">
             <h2 className="main-title">People</h2>
             <div className="card-container">
+
                 {people && (
                     <>
                         {people.data.map(person => (
@@ -41,8 +55,14 @@ const PeoplePage = () => {
                     </>
                 )}
             </div>
+
+            {loading && <p>Loading...</p>}
+
+            {error && <p className='error'>{error}</p>}
         </div>
     );
+
 }
+
 
 export default PeoplePage;

@@ -11,6 +11,7 @@ import NotFoundPage from "./assets/pages/NotFoundPage";
 import FilmPage from "./assets/pages/FilmPage";
 import PersonPage from "./assets/pages/PersonPage";
 import PeoplePage from "./assets/pages/PeoplePage";
+import PlanetPage from "./assets/pages/PlanetPage";
 
 
 
@@ -27,6 +28,7 @@ function App() {
           <Route path="/people" element={<PeoplePage />} />
           <Route path="/people/:id" element={<PersonPage />} />
           <Route path="/planets" element={<PlanetsPage />} />
+          <Route path="/planets/:id" element={<PlanetPage />} />
           <Route path="/species" element={<SpeciesPage />} />
           <Route path="/starships" element={<StarshipsPage />} />
           <Route path="/vehicles" element={<VehiclesPage />} />
