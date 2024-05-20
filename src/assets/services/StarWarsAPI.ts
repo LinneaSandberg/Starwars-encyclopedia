@@ -14,6 +14,7 @@ import {
 	PlanetsResponse,
 	SpeciesResponse,
 	StarshipsResponse,
+	Vehicle,
 	VehiclesResponse,
 } from "../types/StarWarsAPI";
 
@@ -92,4 +93,8 @@ export const getStarships = async () => {
  */
 export const getVehicles = async () => {
 	return get<VehiclesResponse>("/vehicles");
+};
+
+export const getVehicle = async (vehicle_id: number) => {
+	return get<Vehicle>(`/vehicles/${vehicle_id}`);
 };
