@@ -12,6 +12,7 @@ import {
 	Person,
 	Planet,
 	PlanetsResponse,
+	Specie,
 	SpeciesResponse,
 	StarshipsResponse,
 	Vehicle,
@@ -79,6 +80,13 @@ export const getPlanet = async (planet_id: number) => {
  */
 export const getSpecies = async () => {
 	return get<SpeciesResponse>("/species");
+};
+
+/**
+ * Get a single specie
+ */
+export const getSpecie = async (specie_id: number) => {
+	return get<Specie>(`/species/${specie_id}`);
 };
 
 /**

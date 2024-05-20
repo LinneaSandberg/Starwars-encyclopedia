@@ -13,6 +13,7 @@ import PersonPage from "./assets/pages/PersonPage";
 import PeoplePage from "./assets/pages/PeoplePage";
 import PlanetPage from "./assets/pages/PlanetPage";
 import VehiclePage from "./assets/pages/VehiclePage";
+import SpeciePage from "./assets/pages/SpeciePage";
 
 
 
@@ -31,6 +32,7 @@ function App() {
           <Route path="/planets" element={<PlanetsPage />} />
           <Route path="/planets/:id" element={<PlanetPage />} />
           <Route path="/species" element={<SpeciesPage />} />
+          <Route path="/species/:id" element={<SpeciePage />} />
           <Route path="/starships" element={<StarshipsPage />} />
           <Route path="/vehicles" element={<VehiclesPage />} />
           <Route path="/vehicles/:id" element={<VehiclePage />} />

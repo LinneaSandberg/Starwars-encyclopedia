@@ -62,6 +62,22 @@ export interface VehiclesResponse {
 	total: number;
 }
 
+export interface SpeciesResponse {
+	current_page: number;
+	data: Specie[];
+	first_page_url: string;
+	from: number;
+	last_page: number;
+	last_page_url: string;
+	links: Link[];
+	next_page_url: string | null;
+	path: string;
+	per_page: number;
+	prev_page_url: string | null;
+	to: number;
+	total: number;
+}
+
 export interface Person {
 	id: number;
 	name: string;
@@ -76,7 +92,7 @@ export interface Person {
 	vehicles_count: number;
 	homeworld: Planet;
 	films: Film[];
-	species: Species[];
+	species: Specie[];
 	starships: Starship[];
 	vehicles: Vehicle[];
 }
@@ -114,9 +130,19 @@ export interface Planet {
 	films: Film[];
 }
 
-export interface Species {
+export interface Specie {
 	id: number;
 	name: string;
+	classification: string;
+	designation: string;
+	average_height: string;
+	average_lifespan: string;
+	eye_colors: string;
+	hair_colors: string;
+	language: string;
+	people_count: number;
+	films_count: number;
+	homeworld: Planet;
 }
 
 export interface Starship {
