@@ -63,6 +63,20 @@ export const getFilm = async (film_id: number) => {
 };
 
 /**
+ * Search for films
+ */
+export const searchForFilms = async (query: string) => {
+	return get<FilmsResponse>(`/films/?search=${query}`);
+};
+
+/**
+ * Search for films with pagination
+ */
+export const searchForFilmsPage = async (page = 0) => {
+	return get<FilmsResponse>(`/films/?page=${page}`);
+};
+
+/**
  * Get all planets
  */
 export const getPlanets = async () => {
