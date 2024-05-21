@@ -102,6 +102,8 @@ export interface Person {
 	hair_color: string;
 	height: string;
 	mass: string;
+	wiki_link: string;
+	image_url: string;
 	films_count: number;
 	species_count: number;
 	starships_count: number;
@@ -121,12 +123,17 @@ export interface Film {
 	director: string;
 	producer: string;
 	release_date: string;
+	image_url: string;
 	characters_count?: number;
 	planets_count?: number;
 	starships_count?: number;
 	vehicles_count?: number;
 	species_count?: number;
 	characters: Person[];
+	planets: Planet[];
+	starships: Starship[];
+	vehicles: Vehicle[];
+	species: Specie[];
 }
 
 export interface Planet {
@@ -159,11 +166,29 @@ export interface Specie {
 	people_count: number;
 	films_count: number;
 	homeworld: Planet;
+	people: Person[];
+	films: Film[];
 }
 
 export interface Starship {
 	id: number;
 	name: string;
+	model: string;
+	starship_class: string;
+	manufacturer: string;
+	cost_in_credits: string;
+	length: string;
+	crew: string;
+	passengers: string;
+	max_atmosphering_speed: string;
+	hyperdrive_rating: string;
+	MGLT: string;
+	cargo_capacity: string;
+	consumables: string;
+	pilot_count: number;
+	films_count: number;
+	pilots: Person[];
+	films: Film[];
 }
 
 export interface Vehicle {
@@ -189,25 +214,4 @@ export interface Link {
 	url: string | null;
 	label: string;
 	active: boolean;
-}
-
-export interface Starship {
-	id: number;
-	name: string;
-	model: string;
-	starship_class: string;
-	manufacturer: string;
-	cost_in_credits: string;
-	length: string;
-	crew: string;
-	passengers: string;
-	max_atmosphering_speed: string;
-	hyperdrive_rating: string;
-	MGLT: string;
-	cargo_capacity: string;
-	consumables: string;
-	pilot_count: number;
-	films_count: number;
-	pilots: Person[];
-	films: Film[];
 }

@@ -20,8 +20,8 @@
     h1 {
         font-size: 2rem;
         font-weight: bold;
-        color: rgb(47, 212, 143);
-        text-shadow: #000000 1px 1px 1px;
+        color: rgb(212, 204, 47);
+        text-shadow: #ffffff 1px 1px 1px;
     }
 
 
@@ -32,6 +32,52 @@
         font-size: large;
         text-shadow: #2ad180 1px 1px 1px;
     }
+}
 
+.wrapper-list {
+    // display: flex;
+    // flex-wrap: wrap;
+    // gap: 2rem;
+    margin-top: 2rem;
 
+    ul {
+        list-style-type: none;
+    }
+
+    li {
+        margin-bottom: 1rem;
+        position: relative;
+    }
+
+    a {
+        text-decoration: none;
+        transition: transform 0.3s ease, color 0.3s ease;
+        color: inherit;
+    }
+
+    a:hover {
+        transform: scale(1.1);
+        color: rgb(47, 212, 143);
+        font-weight: bold;
+    }
+
+    .homeworld-name {
+        font-weight: bold;
+        color: rgb(212, 204, 47);
+    }
+}
+
+.back-button {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: large;
+    color: rgb(212, 204, 47);
+    text-shadow: #c5c5c5 1px 1px 1px;
+    border-radius: 1rem;
+
+    &:hover {
+        color: #2ad180;
+        text-shadow: #c5c5c5 1px 1px 1px;
+        transform: scale(1.1);
+    }
 }

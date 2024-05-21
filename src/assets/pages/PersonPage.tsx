@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { Person } from "../types/StarWarsAPI";
 import { Link, useParams } from "react-router-dom";
 import { getPerson } from "../services/StarWarsAPI";
+import Container from 'react-bootstrap/Container';
+import ListGroup from 'react-bootstrap/ListGroup';
+import Card from "react-bootstrap/Card";
 
 
 
@@ -23,56 +26,67 @@ const PersonPage = () => {
     }, []);
 
     return (
-        <div className="single-wrapper">
+        <Container fluid>
             {person && (
-                <div className="single-card">
-                    <h3>{person.name}</h3>
-                    <div className="text-wrapper"><p className='card-p'>Birth Year</p><p className='card-a'>{person.birth_year}</p></div>
-                    <div className="text-wrapper"><p className='card-p'>Eye colour</p><p className='card-a'>{person.eye_color}</p></div>
-                    <div className="text-wrapper"><p className='card-p'>Hair colour</p><p className='card-a'>{person.hair_color}</p></div>
-                    <div className="text-wrapper"><p className='card-p'>Height</p><p className='card-a'>{person.height}</p></div>
-                    <div className="text-wrapper"><p className='card-p'>Mass</p><p className='card-a'>{person.mass}</p></div>
-
-
-                    <h4>Links</h4>
-                    <div className="text-wrapper"><p className='card-p'>Homeworld</p><p className='card-a'>{person.homeworld.name}</p></div>
-
-                    <h5>Homeworld</h5>
-                    <ul>
-                        <li key={person.homeworld.id}><Link to={`/homeworld/${person.homeworld.id}`}>{person.homeworld.name}</Link></li>
-                    </ul>
-
-                    <h5>Films</h5>
-                    <ul>
-                        {person.films.map(film =>
-                            <li key={film.id}><Link to={`/films/${film.id}`}>{film.title}</Link></li>
+                <Card className="mt-4 mb-4">
+                    <Card.Header as="h5">{person.name}</Card.Header>
+                    <Card.Img variant="top" src={person.image_url}></Card.Img>
+                    <Card.Body>
+                        <ListGroup>
+                            <ListGroup.Item>Height: {person.height}</ListGroup.Item>
+                            <ListGroup.Item>Mass: {person.mass}</ListGroup.Item>
+                            <ListGroup.Item>Birth Year: {person.birth_year}</ListGroup.Item>
+                            <ListGroup.Item>Eye Color: {person.eye_color}</ListGroup.Item>
+                            <ListGroup.Item>Hair Color: {person.hair_color}</ListGroup.Item>
+                        </ListGroup>
+                        <Container className="wrapper-list">
+                            <h4>Homeworld:</h4>
+                            <Link to={`/planets/${person.homeworld.id}`}>{person.name} lives on the 🪐 <span className="homeworld-name">{person.homeworld.name}</span></Link>
+                        </Container>
+                        <Container className="wrapper-list">
+                            <h4>Films:</h4>
+                            <ul className="link-list">
+                                {person.films.map(film => (
+                                    <li key={film.id}><Link to={`/films/${film.id}`}>🎥 {film.title}</Link></li>
+                                ))}
+                            </ul>
+                        </Container>
+                        {person.starships && person.starships.length > 0 && (
+                            <Container className="wrapper-list">
+                                <h4>Starships:</h4>
+                                <ul className="link-list">
+                                    {person.starships.map(starship => (
+                                        <li key={starship.id}><Link to={`/starships/${starship.id}`}>🚀 {starship.name}</Link></li>
+                                    ))}
+                                </ul>
+                            </Container>
                         )}
-                    </ul>
-
-                    <h5>Species</h5>
-                    <ul>
-                        {person.species.map(species =>
-                            <li key={species.id}><Link to={`/species/${species.id}`}>{species.name}</Link></li>
+                        {person.vehicles && person.vehicles.length > 0 && (
+                            <Container className="wrapper-list">
+                                <h4>Vehicles:</h4>
+                                <ul className="link-list">
+                                    {person.vehicles.map(vehicle => (
+                                        <li key={vehicle.id}><Link to={`/vehicles/${vehicle.id}`}>🚗 {vehicle.name}</Link></li>
+                                    ))}
+                                </ul>
+                            </Container>
                         )}
-                    </ul>
-
-                    <h5>Starships</h5>
-                    <ul>
-                        {person.starships.map(starship =>
-                            <li key={starship.id}><Link to={`/starships/${starship.id}`}>{starship.name}</Link></li>
+                        {person.species && person.species.length > 0 && (
+                            <Container className="wrapper-list">
+                                <h4>Species:</h4>
+                                <ul className="link-list">
+                                    {person.species.map(specie => (
+                                        <li key={specie.id}><Link to={`/species/${specie.id}`}>👽 {specie.name}</Link></li>
+                                    ))}
+                                </ul>
+                            </Container>
                         )}
-                    </ul>
-
-                    <h5>Vehicles</h5>
-                    <ul>
-                        {person.vehicles.map(vehicle =>
-                            <li key={vehicle.id}><Link to={`/vehicles/${vehicle.id}`}>{vehicle.name}</Link></li>
-                        )}
-                    </ul>
-
-                </div>
+                    </Card.Body>
+                </Card>
             )}
-        </div>
+        </Container>
+
+
     )
 
 }

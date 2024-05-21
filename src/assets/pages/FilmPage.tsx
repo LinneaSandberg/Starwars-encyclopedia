@@ -2,6 +2,9 @@ import { Link, useParams } from "react-router-dom";
 import { Film } from "../types/StarWarsAPI";
 import { useEffect, useState } from "react";
 import { getFilm } from "../services/StarWarsAPI";
+import Container from 'react-bootstrap/Container';
+import ListGroup from 'react-bootstrap/ListGroup';
+import Card from "react-bootstrap/Card";
 
 
 const FilmPage = () => {
@@ -24,39 +27,67 @@ const FilmPage = () => {
 
 
     return (
-        <div className="single-wrapper">
+
+        <Container fluid>
             {film && (
-
-                <div className="single-card">
-                    <h3>{film.title}</h3>
-                    <p>{film.opening_crawl}</p>
-                    <p>{film.director}</p>
-                    <p>{film.producer}</p>
-                    <p>{film.release_date}</p>
-
-
-
-                    <ul>
-                        {film.characters.map(character => (
-                            <li key={character.id}><Link to={`/people/${character.id}`}>{character.name}</Link></li>
-
-                        ))}
-
-                    </ul>
-                    <p>Characters:</p>
-                    <p>{film.characters_count}</p>
-                    <p>Planets:</p>
-                    <p>{film.planets_count}</p>
-                    <p>Starships:</p>
-                    <p>{film.starships_count}</p>
-                    <p>Vehicles:</p>
-                    <p>{film.vehicles_count}</p>
-                    <p>Species:</p>
-                    <p>{film.species_count}</p>
-                </div>
+                <Card className="mt-4 mb-4">
+                    <Card.Header as="h5">{film.title}</Card.Header>
+                    <Card.Img variant="top" src={film.image_url} alt="film image" />
+                    <Card.Body>
+                        <Card.Text>{film.opening_crawl}</Card.Text>
+                        <ListGroup>
+                            <ListGroup.Item>Episode: {film.episode_id}</ListGroup.Item>
+                            <ListGroup.Item>Director: {film.director}</ListGroup.Item>
+                            <ListGroup.Item>Producer: {film.producer}</ListGroup.Item>
+                            <ListGroup.Item>Release Date: {film.release_date}</ListGroup.Item>
+                        </ListGroup>
+                        <Container className="wrapper-list">
+                            <h4>Characters:</h4>
+                            <ul className="link-list">
+                                {film.characters.map(character => (
+                                    <li key={character.id}><Link to={`/people/${character.id}`}>🦾 {character.name}</Link></li>
+                                ))}
+                            </ul>
+                        </Container>
+                        <Container className="wrapper-list">
+                            <h4>Planets:</h4>
+                            <ul className="link-list">
+                                {film.planets.map(planet => (
+                                    <li key={planet.id}><Link to={`/planets/${planet.id}`}>🪐 {planet.name}</Link></li>
+                                ))}
+                            </ul>
+                        </Container>
+                        <Container className="wrapper-list">
+                            <h4>Starships:</h4>
+                            <ul className="link-list">
+                                {film.starships.map(starship => (
+                                    <li key={starship.id}><Link to={`/starships/${starship.id}`}>🚀 {starship.name}</Link></li>
+                                ))}
+                            </ul>
+                        </Container>
+                        <Container className="wrapper-list">
+                            <h4>Vehicles:</h4>
+                            <ul className="link-list">
+                                {film.vehicles.map(vehicle => (
+                                    <li key={vehicle.id}><Link to={`/vehicles/${vehicle.id}`}>🚦 {vehicle.name}</Link></li>
+                                ))}
+                            </ul>
+                        </Container>
+                        <Container className="wrapper-list">
+                            <h4>Species:</h4>
+                            <ul className="link-list">
+                                {film.species.map(specie => (
+                                    <li key={specie.id}><Link to={`/species/${specie.id}`}>👽 {specie.name}</Link></li>
+                                ))}
+                            </ul>
+                        </Container>
+                        <Link to="/films" role="button" className="back-button" >
+                            &laquo; Back
+                        </Link>
+                    </Card.Body>
+                </Card>
             )}
-
-        </div>
+        </Container>
     )
 }
 
