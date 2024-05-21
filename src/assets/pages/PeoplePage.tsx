@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { getPeoples } from "../services/StarWarsAPI";
 import { PeopleResponse } from "../types/StarWarsAPI";
+import Container from "react-bootstrap/Container";
+import { Col, Row } from "react-bootstrap";
+import PersonCard from "../components/PersonCard";
+
 
 
 
@@ -18,7 +22,6 @@ const PeoplePage = () => {
             const data = await getPeoples();
 
             setPeople(data);
-
         } catch (err) {
             if (err instanceof Error) {
                 setError(err.message);
@@ -36,30 +39,36 @@ const PeoplePage = () => {
     }, []);
 
     return (
-        <div className="main-wrapper">
-            <h2 className="main-title">People</h2>
-            <div className="card-container">
 
-                {people && (
-                    <>
-                        {people.data.map(person => (
-                            <div className='card' key={person.id}>
-                                <h3 className='card-title'>{person.name}</h3>
-                                <div className="text-wrapper"><p className='card-p'>Born</p><p className='card-a'>{person.birth_year}</p></div>
-                                <div className="text-wrapper"><p className='card-p'>Homeworld</p><p className='card-a'>{person.homeworld.name}</p></div>
-                                <div className="text-wrapper"><p className='card-p'>In</p><p className='card-a'>{person.films_count} films</p></div>
-                                <button>Read more</button>
-                            </div>
+        <Container fluid className="d-flex flex-column align-items-center">
 
-                        ))}
-                    </>
-                )}
-            </div>
+
+
+
+
+
+
+            <h2 className="m-3">People</h2>
+            <Container fluid>
+                <Row className="justify-content-center">
+                    {people && (
+                        <>
+                            {people.data.map(people => (
+                                <Col key={people.id} xs={12} sm={6} md={4} lg={3} className="mb-3 d-flex justify-content-center">
+
+                                    <PersonCard key={people.id} people={people} />
+                                </Col>
+                            ))}
+                        </>
+                    )}
+                </Row>
+            </Container>
 
             {loading && <p>Loading...</p>}
 
             {error && <p className='error'>{error}</p>}
-        </div>
+        </Container>
+
     );
 
 }

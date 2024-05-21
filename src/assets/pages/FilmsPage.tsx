@@ -2,12 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import { FilmsResponse } from "../types/StarWarsAPI";
 import { getFilms, searchForFilms } from "../services/StarWarsAPI";
 import { useSearchParams } from "react-router-dom";
-import FilmCards from "../components/FilmCards";
 import Container from "react-bootstrap/Container";
 import { Col, Row } from "react-bootstrap";
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import ListGroup from "react-bootstrap/ListGroup";
+import FilmCard from "../components/FilmCard";
 // import Page from "../components/Page";
 
 
@@ -133,7 +133,7 @@ const FilmsPage = () => {
                             {films.data.map(film => (
                                 <Col key={film.id} xs={12} sm={6} md={4} lg={3} className="mb-3 d-flex justify-content-center">
 
-                                    <FilmCards key={film.id} film={film} />
+                                    <FilmCard key={film.id} film={film} />
                                 </Col>
                             ))}
                         </>

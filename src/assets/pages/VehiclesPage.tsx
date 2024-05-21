@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { VehiclesResponse } from "../types/StarWarsAPI";
 import { getVehicles } from "../services/StarWarsAPI";
+import Container from "react-bootstrap/Container";
+import { Col, Row } from "react-bootstrap";
+import VehicleCard from "../components/VehicleCard";
 
 
 
@@ -36,28 +39,31 @@ const VehiclesPage = () => {
 
 
     return (
-        <div className="main-wrapper">
-            <h2 className="main-title">Vehicles</h2>
-            <div className="card-container">
-                {vehicles && (
-                    <>
-                        {vehicles.data.map(vehicle => (
-                            <div className='card' key={vehicle.id}>
-                                <h3 className='card-title'>{vehicle.name}</h3>
-                                <div className="text-wrapper"><p className='card-p'>Model</p><p className='card-a'>{vehicle.model}</p></div>
-                                <div className="text-wrapper"><p className='card-p'>Manufacturer</p><p className='card-a'>{vehicle.manufacturer}</p></div>
-                                <div className="text-wrapper"><p className='card-p'>Passengers</p><p className='card-a'>{vehicle.passengers}</p></div>
-                                <button>Read more</button>
-                            </div>
-                        ))}
-                    </>
-                )}
-            </div>
+        <Container fluid className="d-flex flex-column align-items-center">
+
+
+
+            <h2 className="m-3">Vehicles</h2>
+            <Container fluid>
+                <Row className="justify-content-center">
+                    {vehicles && (
+                        <>
+                            {vehicles.data.map(vehicle => (
+                                <Col key={vehicle.id} xs={12} sm={6} md={4} lg={3} className="mb-3 d-flex justify-content-center">
+
+                                    <VehicleCard key={vehicle.id} vehicle={vehicle} />
+                                </Col>
+                            ))}
+                        </>
+                    )}
+                </Row>
+            </Container>
+
 
             {loading && <p>Loading...</p>}
 
             {error && <p className='error'>{error}</p>}
-        </div >
+        </Container >
     );
 }
 

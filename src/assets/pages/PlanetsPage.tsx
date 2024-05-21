@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { PlanetsResponse } from "../types/StarWarsAPI";
 import { getPlanets } from "../services/StarWarsAPI";
+import Container from "react-bootstrap/Container";
+import { Col, Row } from "react-bootstrap";
+import PlanetCard from "../components/PlanetCard";
+
 
 
 
@@ -35,28 +39,29 @@ const PlanetsPage = () => {
     }, []);
 
     return (
-        <div className="main-wrapper">
-            <h2 className="main-title">Planets</h2>
-            <div className="card-container">
-                {planets && (
-                    <>
-                        {planets.data.map(planet => (
-                            <div className='card' key={planet.id}>
-                                <h3 className='card-title'>{planet.name}</h3>
-                                <div className="text-wrapper"><p className='card-p'>Population</p><p className='card-a'>{planet.population}</p></div>
-                                <div className="text-wrapper"><p className='card-p'>Terrain</p><p className='card-a'>{planet.terrain}</p></div>
-                                <div className="text-wrapper"><p className='card-p'>In</p><p className='card-a'>{planet.films_count} films</p></div>
-                                <button>Read more</button>
-                            </div>
-                        ))}
-                    </>
-                )}
-            </div>
+        <Container fluid className="d-flex flex-column align-items-center">
+
+
+
+            <h2 className="m-3">Planets</h2>
+            <Container fluid>
+                <Row className="justify-content-center">
+                    {planets && (
+                        <>
+                            {planets.data.map(planet => (
+                                <Col key={planet.id} xs={12} sm={6} md={4} lg={3} className="mb-3 d-flex justify-content-center">
+                                    <PlanetCard key={planet.id} planet={planet} />
+                                </Col>
+                            ))}
+                        </>
+                    )}
+                </Row>
+            </Container>
 
             {loading && <p>Loading...</p>}
 
             {error && <p className='error'>{error}</p>}
-        </div>
+        </Container>
     )
 }
 
