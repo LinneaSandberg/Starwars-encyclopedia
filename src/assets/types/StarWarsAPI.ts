@@ -78,6 +78,22 @@ export interface SpeciesResponse {
 	total: number;
 }
 
+export interface StarshipsResponse {
+	current_page: number;
+	data: Starship[];
+	first_page_url: string;
+	from: number;
+	last_page: number;
+	last_page_url: string;
+	links: Link[];
+	next_page_url: string | null;
+	path: string;
+	per_page: number;
+	prev_page_url: string | null;
+	to: number;
+	total: number;
+}
+
 export interface Person {
 	id: number;
 	name: string;
@@ -175,6 +191,23 @@ export interface Link {
 	active: boolean;
 }
 
-export interface SpeciesResponse {}
-
-export interface StarshipsResponse {}
+export interface Starship {
+	id: number;
+	name: string;
+	model: string;
+	starship_class: string;
+	manufacturer: string;
+	cost_in_credits: string;
+	length: string;
+	crew: string;
+	passengers: string;
+	max_atmosphering_speed: string;
+	hyperdrive_rating: string;
+	MGLT: string;
+	cargo_capacity: string;
+	consumables: string;
+	pilot_count: number;
+	films_count: number;
+	pilots: Person[];
+	films: Film[];
+}

@@ -14,6 +14,7 @@ import {
 	PlanetsResponse,
 	Specie,
 	SpeciesResponse,
+	Starship,
 	StarshipsResponse,
 	Vehicle,
 	VehiclesResponse,
@@ -97,12 +98,22 @@ export const getStarships = async () => {
 };
 
 /**
+ * Get a single starship
+ */
+export const getStarship = async (starship_id: number) => {
+	return get<Starship>(`/starships/${starship_id}`);
+};
+
+/**
  * Get all vehicles
  */
 export const getVehicles = async () => {
 	return get<VehiclesResponse>("/vehicles");
 };
 
+/**
+ * Get a single vehicle
+ */
 export const getVehicle = async (vehicle_id: number) => {
 	return get<Vehicle>(`/vehicles/${vehicle_id}`);
 };

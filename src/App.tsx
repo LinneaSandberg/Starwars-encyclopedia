@@ -14,6 +14,7 @@ import PeoplePage from "./assets/pages/PeoplePage";
 import PlanetPage from "./assets/pages/PlanetPage";
 import VehiclePage from "./assets/pages/VehiclePage";
 import SpeciePage from "./assets/pages/SpeciePage";
+import StarshipPage from "./assets/pages/StarshipPage";
 
 
 
@@ -34,6 +35,7 @@ function App() {
           <Route path="/species" element={<SpeciesPage />} />
           <Route path="/species/:id" element={<SpeciePage />} />
           <Route path="/starships" element={<StarshipsPage />} />
+          <Route path="/starships/:id" element={<StarshipPage />} />
           <Route path="/vehicles" element={<VehiclesPage />} />
           <Route path="/vehicles/:id" element={<VehiclePage />} />
 
@@ -46,4 +48,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
