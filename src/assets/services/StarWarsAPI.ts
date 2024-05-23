@@ -37,7 +37,7 @@ const get = async <T>(endpoint: string) => {
 /**
  * Get all people
  */
-export const getPeoples = async () => {
+export const getPeople = async () => {
 	return get<PeopleResponse>("/people");
 };
 
@@ -49,10 +49,17 @@ export const getPerson = async (person_id: number) => {
 };
 
 /**
+ * Search for people
+ */
+export const searchForPeople = async (query: string, page: number) => {
+	return get<PeopleResponse>(`/people/?search=${query}&page=${page}`);
+};
+
+/**
  * Get all films
  */
-export const getFilms = async (page: number) => {
-	return get<FilmsResponse>(`/films?page=${page}`);
+export const getFilms = async () => {
+	return get<FilmsResponse>("/films");
 };
 
 /**
@@ -70,13 +77,6 @@ export const searchForFilms = async (query: string, page: number) => {
 };
 
 /**
- * Search for films with pagination
- */
-export const searchForFilmsPage = async (page = 0) => {
-	return get<FilmsResponse>(`/films/?page=${page}`);
-};
-
-/**
  * Get all planets
  */
 export const getPlanets = async () => {
@@ -88,6 +88,13 @@ export const getPlanets = async () => {
  */
 export const getPlanet = async (planet_id: number) => {
 	return get<Planet>(`/planets/${planet_id}`);
+};
+
+/**
+ * Search for planets
+ */
+export const searchForPlanets = async (query: string, page: number) => {
+	return get<PlanetsResponse>(`/planets/?search=${query}&page=${page}`);
 };
 
 /**
@@ -105,6 +112,13 @@ export const getSpecie = async (specie_id: number) => {
 };
 
 /**
+ * Search for species
+ */
+export const searchForSpecies = async (query: string, page: number) => {
+	return get<SpeciesResponse>(`/species/?search=${query}&page=${page}`);
+};
+
+/**
  * Get all starships
  */
 export const getStarships = async () => {
@@ -119,6 +133,13 @@ export const getStarship = async (starship_id: number) => {
 };
 
 /**
+ * Search for starships
+ */
+export const searchForStarships = async (query: string, page: number) => {
+	return get<StarshipsResponse>(`/starships/?search=${query}&page=${page}`);
+};
+
+/**
  * Get all vehicles
  */
 export const getVehicles = async () => {
@@ -130,4 +151,11 @@ export const getVehicles = async () => {
  */
 export const getVehicle = async (vehicle_id: number) => {
 	return get<Vehicle>(`/vehicles/${vehicle_id}`);
+};
+
+/**
+ * Search for vehicles
+ */
+export const searchForVehicles = async (query: string, page: number) => {
+	return get<VehiclesResponse>(`/vehicles/?search=${query}&page=${page}`);
 };

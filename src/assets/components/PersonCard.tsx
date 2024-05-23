@@ -12,8 +12,9 @@ interface PersonCardProps {
 const PersonCard: React.FC<PersonCardProps> = ({ people }) => {
     return (
         <Card border="light" style={{ width: "20rem" }}>
+            <Card.Header as="h5">{people.name}</Card.Header>
             <Card.Body className="d-flex flex-column justify-content-end">
-                <Card.Title>{people.name}</Card.Title>
+                <Card.Img className="custom-img" variant="top" src={`${people.image_url}`} />
                 <Container>
                     <ListGroup className="list-group-flush">
                         <ListGroup.Item>Born: {people.birth_year}</ListGroup.Item>

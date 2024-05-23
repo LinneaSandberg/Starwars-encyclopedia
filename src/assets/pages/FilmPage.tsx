@@ -32,7 +32,7 @@ const FilmPage = () => {
             {film && (
                 <Card className="mt-4 mb-4">
                     <Card.Header as="h5">{film.title}</Card.Header>
-                    <Card.Img variant="top" src={film.image_url} alt="film image" />
+                    <Card.Img className="card-img" variant="top" src={film.image_url} alt="film image" />
                     <Card.Body>
                         <Card.Text>{film.opening_crawl}</Card.Text>
                         <ListGroup>

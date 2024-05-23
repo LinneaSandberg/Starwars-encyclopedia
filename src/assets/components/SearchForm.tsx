@@ -1,26 +1,20 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Container from "react-bootstrap/Container";
 
 
 interface SearchFormProps {
-    onHandleUserSearch: (searchInput: string) => void;
+    searchInput: string;
+    setSearchInput: (searchInput: string) => void;
+    handleUserInput: (e: React.FormEvent) => void;
+
+
+
 
 }
 
-const SearchForm: React.FC<SearchFormProps> = ({ onHandleUserSearch }) => {
-    // state for user input
-    const [searchInput, setSearchInput] = useState('');
-
-
-
-    const handleUserInput = (e: React.FormEvent) => {
-        e.preventDefault();
-        const trimmedSearch = searchInput.trim();
-        onHandleUserSearch(trimmedSearch);
-        setSearchInput('');
-    }
+const SearchForm: React.FC<SearchFormProps> = ({ searchInput, setSearchInput, handleUserInput }) => {
 
 
 

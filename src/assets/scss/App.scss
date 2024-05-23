@@ -81,3 +81,15 @@
         transform: scale(1.1);
     }
 }
+
+.custom-img {
+    height: 200px;
+    object-fit: scale-down;
+    width: 100%;
+}
+
+.card-img {
+    height: 600px;
+    object-fit: scale-down;
+    width: 100%;
+}

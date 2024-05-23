@@ -30,7 +30,7 @@ const PersonPage = () => {
             {person && (
                 <Card className="mt-4 mb-4">
                     <Card.Header as="h5">{person.name}</Card.Header>
-                    <Card.Img variant="top" src={person.image_url}></Card.Img>
+                    <Card.Img className="card-img" variant="top" src={person.image_url} alt="character photo"></Card.Img>
                     <Card.Body>
                         <ListGroup>
                             <ListGroup.Item>Height: {person.height}</ListGroup.Item>

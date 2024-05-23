@@ -1,93 +1,36 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { FilmsResponse } from "../types/StarWarsAPI";
 import { getFilms, searchForFilms } from "../services/StarWarsAPI";
 import { useSearchParams } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import { Col, Row } from "react-bootstrap";
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
 import ListGroup from "react-bootstrap/ListGroup";
 import FilmCard from "../components/FilmCard";
-import Page from "../components/Page";
+import SearchForm from "../components/SearchForm";
+
 
 
 const FilmsPage = () => {
-    // state for loading, error and films
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | false>(false);
     const [films, setFilms] = useState<FilmsResponse | null>(null);
 
-    // state for user input
     const [searchInput, setSearchInput] = useState('');
-    // state for search results from API
     const [searchResults, setSearchResults] = useState<FilmsResponse | null>(null);
-    // state for search params from URL
     const [searchParams, setSearchParams] = useSearchParams();
-    // reference to input field
-    const inputFromQuery = useRef<HTMLInputElement>(null);
+    const [currentPage, setCurrentPage] = useState(1);
 
-    // get search query from URL
     const searchParamsQuery = searchParams.get("search");
-    // get page from URL
-    const searchParamsPage = searchParams.get("page") || '1';
-    // state for current page
-    const [currentPage, setCurrentPage] = useState(parseInt(searchParamsPage) || 1);
-    // state for search attempted
-    const [searchAttempted, setSearchAttempted] = useState(false);
 
 
 
-
-    // search for films function with search query and page
-    const searchFilms = async (searchQuery: string, page = 1
-    ) => {
-        setError(false);
-        setLoading(true);
-        setSearchResults(null);
-
-        try {
-            const data = await searchForFilms(searchQuery, page);
-
-            setSearchResults(data);
-        } catch (err) {
-            if (err instanceof Error) {
-                setError(err.message);
-            } else {
-                setError('An error occurred');
-            }
-        }
-
-        setLoading(false);
-    }
-
-    const handleUserInput = (e: React.FormEvent) => {
-        e.preventDefault();
-        const trimmedSearch = searchInput.trim();
-        setSearchParams({ search: trimmedSearch, page: '1' });
-        setSearchAttempted(true);
-    }
-
-    useEffect(() => {
-        if (searchParamsQuery) {
-            searchFilms(searchParamsQuery, currentPage);
-        } else {
-            getAllFilms(currentPage);
-        }
-
-        // searchFilms(searchParamsQuery, currentPage);
-
-        // set the search input field to the search query
-        // setSearchInput(searchParamsQuery);
-    }, [searchParamsQuery, currentPage]);
-
-
-    const getAllFilms = async (page = 1) => {
+    const getAllFilms = async () => {
         setError(false);
         setLoading(true);
         setFilms(null);
 
         try {
-            const data = await getFilms(page);
+            const data = await getFilms();
 
             setFilms(data);
         } catch (err) {
@@ -97,86 +40,78 @@ const FilmsPage = () => {
                 setError('An error occurred');
             }
         }
-
         setLoading(false);
     }
 
-    const handlePageChange = (page: number) => {
-        if (page < 1 || films && page > films.last_page) {
+    const searchFilms = async (searchQuery: string, page = 1) => {
+        setError(false);
+        setLoading(true);
+        setSearchResults(null);
+
+        try {
+            const data = await searchForFilms(searchQuery, page);
+
+            setSearchResults(data);
+
+        } catch (err) {
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError('An error occurred');
+            }
+        }
+        setLoading(false);
+    }
+
+    const handleUserInput = (e: React.FormEvent) => {
+        e.preventDefault();
+        const trimmedSearch = searchInput.trim();
+
+        setCurrentPage(1);
+
+        setSearchParams({ search: trimmedSearch, page: '1' });
+
+        setSearchInput('');
+    }
+
+    useEffect(() => {
+        getAllFilms();
+    }, []);
+
+    useEffect(() => {
+        if (!searchParamsQuery) {
             return;
         }
 
-        setCurrentPage(page);
-        if (searchParamsQuery) {
-            setSearchParams({ search: searchParamsQuery, page: page.toString() });
-        } else {
-            setSearchParams({ page: page.toString() });
-        }
-    }
-
-    // useEffect(() => {
-    //     getAllFilms(currentPage);
-    // }, [currentPage]);
+        searchFilms(searchParamsQuery, currentPage);
+    }, [searchParamsQuery, currentPage]);
 
 
     return (
         <Container fluid className="d-flex flex-column align-items-center">
 
-            {/* <SearchForm onHandleUserSearch={searchFilms} ></SearchForm> */}
-
-            {/* <SearchForm onHandleUserSearch={searchFilms} ></SearchForm> */}
-
-
-            <Container fluid className="d-flex flex-column">
-                <Form onSubmit={handleUserInput}>
-                    <Form.Group controlId='searchQuery'>
-                        <Form.Label className="mt-5">Make a search</Form.Label>
-                        <Form.Control
-                            type="text"
-                            placeholder="Search"
-                            required
-                            value={searchInput}
-                            onChange={(e) => setSearchInput(e.target.value)}
-                            ref={inputFromQuery}
-                        />
-                    </Form.Group>
-
-                    <Container className="d-flex justify-content-end mt-2">
-                        <Button type="submit" variant="success">
-                            Search
-                        </Button>
-                    </Container>
-                </Form>
+            <Container>
+                <SearchForm searchInput={searchInput} setSearchInput={setSearchInput} handleUserInput={handleUserInput} />
             </Container>
 
-            {searchAttempted && (
+            {searchResults && (
                 <>
-
-                    {searchResults && searchResults.data.length > 0 ? (
+                    {searchResults.data.length > 0 ? (
                         <>
-                            <p>Showing result for our search of "{searchParamsQuery}"</p>
-
-                            {searchResults.data.length > 0 && (
-                                <ListGroup>
-                                    {searchResults.data.map(film => (
-                                        <ListGroup.Item key={film.id}>
-                                            <FilmCard film={film} />
-                                        </ListGroup.Item>
-                                    )
-                                    )}
-                                </ListGroup>
-
-                            )}
-
+                            <p>Showing results for your search of {searchParamsQuery}</p>
+                            <ListGroup>
+                                {searchResults.data.map(film => (
+                                    <FilmCard key={film.id} film={film}></FilmCard>
+                                ))}
+                            </ListGroup>
                         </>
-                    ) : (<>
-                        <p>There where 0 hits on your search of {searchParamsQuery}</p>
-                    </>
+                    ) : (
+                        <>
+                            <p>No results found for your search of {searchParamsQuery}</p>
+                        </>
                     )}
                 </>
             )}
-
-
 
 
             <h2 className="m-3">Films</h2>
@@ -199,7 +134,7 @@ const FilmsPage = () => {
 
             {error && <p className='error'>{error}</p>}
 
-            {films && (
+            {/* {films && (
                 <Page
                     hasPreviousPage={films.prev_page_url !== null}
                     hasNextPage={films.next_page_url !== null}
@@ -209,7 +144,7 @@ const FilmsPage = () => {
                     onPreviousPage={() => handlePageChange(currentPage - 1)}
                     onNextPage={() => handlePageChange(currentPage + 1)}
                 ></Page>
-            )}
+            )} */}
         </Container>
     );
 }
