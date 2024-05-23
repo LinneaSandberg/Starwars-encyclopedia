@@ -51,8 +51,8 @@ export const getPerson = async (person_id: number) => {
 /**
  * Get all films
  */
-export const getFilms = async () => {
-	return get<FilmsResponse>("/films");
+export const getFilms = async (page: number) => {
+	return get<FilmsResponse>(`/films?page=${page}`);
 };
 
 /**
@@ -65,8 +65,8 @@ export const getFilm = async (film_id: number) => {
 /**
  * Search for films
  */
-export const searchForFilms = async (query: string) => {
-	return get<FilmsResponse>(`/films/?search=${query}`);
+export const searchForFilms = async (query: string, page: number) => {
+	return get<FilmsResponse>(`/films/?search=${query}&page=${page}`);
 };
 
 /**

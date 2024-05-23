@@ -15,24 +15,21 @@ interface PageProps {
 const Page: React.FC<PageProps> = ({ hasNextPage, hasPreviousPage, page, totalPages, onPreviousPage, onNextPage }) => {
     return (
         <Container className="d-flex align-items-center">
-            <Container>
-                <Button
-                    disabled={!hasPreviousPage}
-                    onClick={onPreviousPage}
-                    variant="info"
-                >Prev page</Button>
-            </Container>
-            <Container>
-                <p className="m-0">Page {page} of {totalPages}</p>
-            </Container>
-            <Container>
-                <Button
-                    disabled={!hasNextPage}
-                    onClick={onNextPage}
-                    variant="info"
-                >Next page
-                </Button>
-            </Container>
+            <Button
+                disabled={!hasPreviousPage}
+                onClick={onPreviousPage}
+                variant="info"
+            >Previous</Button>
+
+            <p className="m-0">Page {page} of {totalPages}</p>
+
+            <Button
+                disabled={!hasNextPage}
+                onClick={onNextPage}
+                variant="info"
+            >Next
+            </Button>
+
         </Container>
     )
 }

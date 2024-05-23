@@ -8,6 +8,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import ListGroup from "react-bootstrap/ListGroup";
 import FilmCard from "../components/FilmCard";
+import Page from "../components/Page";
 // import Page from "../components/Page";
 
 
@@ -16,21 +17,27 @@ const FilmsPage = () => {
     const [error, setError] = useState<string | false>(false);
     const [films, setFilms] = useState<FilmsResponse | null>(null);
 
-    const [search, setSearch] = useState('');
+    const [searchInput, setSearchInput] = useState('');
     const [searchResults, setSearchResults] = useState<FilmsResponse | null>(null);
     const [searchParams, setSearchParams] = useSearchParams();
     const inputFromQuery = useRef<HTMLInputElement>(null);
 
     const searchParamsQuery = searchParams.get("search");
+    const searchParamsPage = searchParams.get("page") || '1';
+    const [currentPage, setCurrentPage] = useState(parseInt(searchParamsPage) || 1);
+    const [searchAttempted, setSearchAttempted] = useState(false);
 
 
-    const searchFilms = async (searchQuery: string) => {
+
+
+    const searchFilms = async (searchQuery: string, page = 1
+    ) => {
         setError(false);
         setLoading(true);
         setSearchResults(null);
 
         try {
-            const data = await searchForFilms(searchQuery);
+            const data = await searchForFilms(searchQuery, page);
 
             setSearchResults(data);
         } catch (err) {
@@ -46,28 +53,32 @@ const FilmsPage = () => {
 
     const handleUserInput = (e: React.FormEvent) => {
         e.preventDefault();
-
-        const trimmedSearch = search.trim();
-
-        setSearchParams({ search: trimmedSearch });
+        const trimmedSearch = searchInput.trim();
+        setSearchParams({ search: trimmedSearch, page: '1' });
+        setSearchAttempted(true);
     }
 
     useEffect(() => {
-        if (!searchParamsQuery) {
-            return;
+        if (searchParamsQuery) {
+            searchFilms(searchParamsQuery, currentPage);
+        } else {
+            getAllFilms(currentPage);
         }
 
-        searchFilms(searchParamsQuery);
-    }, [searchParamsQuery]);
+        // searchFilms(searchParamsQuery, currentPage);
+
+        // set the search input field to the search query
+        // setSearchInput(searchParamsQuery);
+    }, [searchParamsQuery, currentPage]);
 
 
-    const getAllFilms = async () => {
+    const getAllFilms = async (page = 1) => {
         setError(false);
         setLoading(true);
         setFilms(null);
 
         try {
-            const data = await getFilms();
+            const data = await getFilms(page);
 
             setFilms(data);
         } catch (err) {
@@ -81,9 +92,22 @@ const FilmsPage = () => {
         setLoading(false);
     }
 
-    useEffect(() => {
-        getAllFilms();
-    }, []);
+    const handlePageChange = (page: number) => {
+        if (page < 1 || films && page > films.last_page) {
+            return;
+        }
+
+        setCurrentPage(page);
+        if (searchParamsQuery) {
+            setSearchParams({ search: searchParamsQuery, page: page.toString() });
+        } else {
+            setSearchParams({ page: page.toString() });
+        }
+    }
+
+    // useEffect(() => {
+    //     getAllFilms(currentPage);
+    // }, [currentPage]);
 
 
     return (
@@ -99,8 +123,8 @@ const FilmsPage = () => {
                             type="text"
                             placeholder="Search"
                             required
-                            value={search}
-                            onChange={(e) => setSearch(e.target.value)}
+                            value={searchInput}
+                            onChange={(e) => setSearchInput(e.target.value)}
                             ref={inputFromQuery}
                         />
                     </Form.Group>
@@ -113,13 +137,31 @@ const FilmsPage = () => {
                 </Form>
             </Container>
 
-            {searchResults && (
-                <ListGroup>
-                    {searchResults.data.map(film => (
-                        <ListGroup.Item key={film.id}>{film.title}</ListGroup.Item>
-                    )
+            {searchAttempted && (
+                <>
+
+                    {searchResults && searchResults.data.length > 0 ? (
+                        <>
+                            <p>Showing result for our search of "{searchParamsQuery}"</p>
+
+                            {searchResults.data.length > 0 && (
+                                <ListGroup>
+                                    {searchResults.data.map(film => (
+                                        <ListGroup.Item key={film.id}>
+                                            <FilmCard film={film} />
+                                        </ListGroup.Item>
+                                    )
+                                    )}
+                                </ListGroup>
+
+                            )}
+
+                        </>
+                    ) : (<>
+                        <p>There where 0 hits on your search of {searchParamsQuery}</p>
+                    </>
                     )}
-                </ListGroup>
+                </>
             )}
 
 
@@ -144,15 +186,18 @@ const FilmsPage = () => {
             {loading && <p>Loading...</p>}
 
             {error && <p className='error'>{error}</p>}
-            {/* 
-            <Page
-                hasPreviousPage={searchResults?.prev_page_url !== null}
-                hasNextPage={searchResults?.next_page_url !== null}
-                page={page + 1}
-                totalPages={searchResults?.total || 0}
-                onPreviousPage={() => setPage(page - 1)}
-                onNextPage={() => setPage(page + 1)}
-            ></Page> */}
+
+            {films && (
+                <Page
+                    hasPreviousPage={films.prev_page_url !== null}
+                    hasNextPage={films.next_page_url !== null}
+                    page={currentPage}
+                    totalPages={films.last_page
+                    }
+                    onPreviousPage={() => handlePageChange(currentPage - 1)}
+                    onNextPage={() => handlePageChange(currentPage + 1)}
+                ></Page>
+            )}
         </Container>
     );
 }
