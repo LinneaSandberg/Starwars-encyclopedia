@@ -1,9 +1,9 @@
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import React from 'react'
 import { Film } from '../types/StarWarsAPI';
 import Container from 'react-bootstrap/Container';
+import { Link } from 'react-router-dom';
 
 interface FilmCardProps {
     film: Film;
@@ -12,8 +12,10 @@ interface FilmCardProps {
 const FilmCard: React.FC<FilmCardProps> = ({ film }) => {
     return (
         <Card border="light" style={{ width: "20rem" }}>
+            <Card.Header as="h5">{film.title}</Card.Header>
             <Card.Body className="d-flex flex-column justify-content-end">
-                <Card.Title>{film.title}</Card.Title>
+                <Card.Img variant="top" src={`${film.image_url}`} />
+                {/* <Card.Title>{film.title}</Card.Title> */}
                 <Container>
                     <ListGroup className="list-group-flush">
                         <ListGroup.Item>Director: {film.director}</ListGroup.Item>
@@ -21,7 +23,7 @@ const FilmCard: React.FC<FilmCardProps> = ({ film }) => {
                         <ListGroup.Item>Release Date: {film.release_date}</ListGroup.Item>
                     </ListGroup>
                 </Container>
-                <Button variant="primary" >Read more</Button>
+                <Link to={`/films/${film.id}`} className='btn btn-success'>Read more</Link>
             </Card.Body>
         </Card>
     )

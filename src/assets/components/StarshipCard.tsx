@@ -1,9 +1,9 @@
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import React from 'react'
 import Container from 'react-bootstrap/Container';
 import { Starship } from '../types/StarWarsAPI';
+import { Link } from 'react-router-dom';
 
 interface StarshipCardProps {
     starship: Starship;
@@ -21,7 +21,7 @@ const StarshipCard: React.FC<StarshipCardProps> = ({ starship }) => {
                         <ListGroup.Item>{starship.passengers} passengers</ListGroup.Item>
                     </ListGroup>
                 </Container>
-                <Button variant="primary" >Read more</Button>
+                <Link to={`/starships/${starship.id}`} className='btn btn-success'>Read more</Link>
             </Card.Body>
         </Card>
     )

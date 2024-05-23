@@ -9,7 +9,6 @@ import Button from 'react-bootstrap/Button'
 import ListGroup from "react-bootstrap/ListGroup";
 import FilmCard from "../components/FilmCard";
 import Page from "../components/Page";
-// import Page from "../components/Page";
 
 
 const FilmsPage = () => {

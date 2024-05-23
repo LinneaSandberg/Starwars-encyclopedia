@@ -1,9 +1,9 @@
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import React from 'react'
 import Container from 'react-bootstrap/Container';
 import { Specie } from '../types/StarWarsAPI';
+import { Link } from 'react-router-dom';
 
 interface SpecieCardProps {
     specie: Specie;
@@ -21,7 +21,7 @@ const SpecieCard: React.FC<SpecieCardProps> = ({ specie }) => {
                         <ListGroup.Item>Designation: {specie.designation}</ListGroup.Item>
                     </ListGroup>
                 </Container>
-                <Button variant="primary" >Read more</Button>
+                <Link to={`/species/${specie.id}`} className='btn btn-success'>Read more</Link>
             </Card.Body>
         </Card>
     )

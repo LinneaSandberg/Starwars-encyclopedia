@@ -1,9 +1,9 @@
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import React from 'react'
 import Container from 'react-bootstrap/Container';
 import { Planet } from '../types/StarWarsAPI';
+import { Link } from 'react-router-dom';
 
 interface PlanetCardProps {
     planet: Planet;
@@ -21,7 +21,7 @@ const PlanetCard: React.FC<PlanetCardProps> = ({ planet }) => {
                         <ListGroup.Item>In {planet.films_count} movies</ListGroup.Item>
                     </ListGroup>
                 </Container>
-                <Button variant="primary" >Read more</Button>
+                <Link to={`/planets/${planet.id}`} className='btn btn-success'>Read more</Link>
             </Card.Body>
         </Card>
     )
