@@ -12,23 +12,33 @@ import Page from "../components/Page";
 
 
 const FilmsPage = () => {
+    // state for loading, error and films
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | false>(false);
     const [films, setFilms] = useState<FilmsResponse | null>(null);
 
+    // state for user input
     const [searchInput, setSearchInput] = useState('');
+    // state for search results from API
     const [searchResults, setSearchResults] = useState<FilmsResponse | null>(null);
+    // state for search params from URL
     const [searchParams, setSearchParams] = useSearchParams();
+    // reference to input field
     const inputFromQuery = useRef<HTMLInputElement>(null);
 
+    // get search query from URL
     const searchParamsQuery = searchParams.get("search");
+    // get page from URL
     const searchParamsPage = searchParams.get("page") || '1';
+    // state for current page
     const [currentPage, setCurrentPage] = useState(parseInt(searchParamsPage) || 1);
+    // state for search attempted
     const [searchAttempted, setSearchAttempted] = useState(false);
 
 
 
 
+    // search for films function with search query and page
     const searchFilms = async (searchQuery: string, page = 1
     ) => {
         setError(false);
@@ -113,6 +123,9 @@ const FilmsPage = () => {
         <Container fluid className="d-flex flex-column align-items-center">
 
             {/* <SearchForm onHandleUserSearch={searchFilms} ></SearchForm> */}
+
+            {/* <SearchForm onHandleUserSearch={searchFilms} ></SearchForm> */}
+
 
             <Container fluid className="d-flex flex-column">
                 <Form onSubmit={handleUserInput}>
