@@ -7,6 +7,7 @@ import { Col, Row } from "react-bootstrap";
 import VehicleCard from "../components/VehicleCard";
 import { useSearchParams } from "react-router-dom";
 import SearchForm from "../components/SearchForm";
+import PagePagination from "../components/PagePagination";
 
 
 
@@ -18,18 +19,20 @@ const VehiclesPage = () => {
     const [searchInput, setSearchInput] = useState('');
     const [searchResults, setSearchResults] = useState<VehiclesResponse | null>(null);
     const [searchParams, setSearchParams] = useSearchParams();
-    const [currentPage, setCurrentPage] = useState(1);
 
     const searchParamsQuery = searchParams.get("search");
+    const currentPageQuery = searchParams.get("page") || '1';
+
+    const currentPage = Number(currentPageQuery);
 
 
-    const getAllVerhicles = async () => {
+    const getAllVerhicles = async (page: number) => {
         setError(false);
         setLoading(true);
         setVehicles(null);
 
         try {
-            const data = await getVehicles();
+            const data = await getVehicles(page);
 
             setVehicles(data);
         } catch (err) {
@@ -67,23 +70,20 @@ const VehiclesPage = () => {
         e.preventDefault();
         const trimmedSearch = searchInput.trim();
 
-        setCurrentPage(1);
-
         setSearchParams({ search: trimmedSearch, page: '1' });
-
         setSearchInput('');
     }
 
-    useEffect(() => {
-        getAllVerhicles();
-    }, []);
+    const handlePageChange = (page: number) => {
+        setSearchParams({ page: String(page) });
+    }
 
     useEffect(() => {
-        if (!searchParamsQuery) {
-            return;
+        if (searchParamsQuery) {
+            searchVehicles(searchParamsQuery, currentPage);
+        } else {
+            getAllVerhicles(currentPage);
         }
-
-        searchVehicles(searchParamsQuery, currentPage);
     }, [searchParamsQuery, currentPage]);
 
 
@@ -135,6 +135,17 @@ const VehiclesPage = () => {
             {loading && <p>Loading...</p>}
 
             {error && <p className='error'>{error}</p>}
+
+            {vehicles && (
+                <PagePagination
+                    hasNextPage={vehicles.next_page_url !== null}
+                    hasPreviousPage={vehicles.prev_page_url !== null}
+                    page={currentPage}
+                    totalPages={vehicles.last_page}
+                    onPreviousPage={() => handlePageChange(currentPage - 1)}
+                    onNextPage={() => handlePageChange(currentPage + 1)}
+                />
+            )}
         </Container >
     );
 }

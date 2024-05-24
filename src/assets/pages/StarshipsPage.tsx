@@ -7,6 +7,7 @@ import { Col, Row } from "react-bootstrap";
 import StarshipCard from "../components/StarshipCard";
 import { useSearchParams } from "react-router-dom";
 import SearchForm from "../components/SearchForm";
+import PagePagination from "../components/PagePagination";
 
 
 
@@ -18,18 +19,20 @@ const StarshipsPage = () => {
     const [searchInput, setSearchInput] = useState('');
     const [searchResults, setSearchResults] = useState<StarshipsResponse | null>(null);
     const [searchParams, setSearchParams] = useSearchParams();
-    const [currentPage, setCurrentPage] = useState(1);
 
     const searchParamsQuery = searchParams.get("search");
+    const currentPageQuery = searchParams.get("page") || '1';
+
+    const currentPage = Number(currentPageQuery);
 
 
-    const getAllStarships = async () => {
+    const getAllStarships = async (page: number) => {
         setError(false);
         setLoading(true);
         setStarships(null);
 
         try {
-            const data = await getStarships();
+            const data = await getStarships(page);
 
             setStarships(data);
         } catch (err) {
@@ -65,23 +68,20 @@ const StarshipsPage = () => {
         e.preventDefault();
         const trimmedSearch = searchInput.trim();
 
-        setCurrentPage(1);
-
         setSearchParams({ search: trimmedSearch, page: '1' });
-
         setSearchInput('');
     }
 
-    useEffect(() => {
-        getAllStarships();
-    }, []);
+    const handlePageChange = (page: number) => {
+        setSearchParams({ page: String(page) });
+    }
 
     useEffect(() => {
-        if (!searchParamsQuery) {
-            return;
+        if (searchParamsQuery) {
+            searchStarships(searchParamsQuery, currentPage);
+        } else {
+            getAllStarships(currentPage);
         }
-
-        searchStarships(searchParamsQuery, currentPage);
     }, [searchParamsQuery, currentPage]);
 
 
@@ -130,6 +130,17 @@ const StarshipsPage = () => {
             {loading && <p>Loading...</p>}
 
             {error && <p className='error'>{error}</p>}
+
+            {starships && (
+                <PagePagination
+                    hasNextPage={starships.next_page_url !== null}
+                    hasPreviousPage={starships.prev_page_url !== null}
+                    page={currentPage}
+                    totalPages={starships.last_page}
+                    onPreviousPage={() => handlePageChange(currentPage - 1)}
+                    onNextPage={() => handlePageChange(currentPage + 1)}
+                />
+            )}
         </Container>
     )
 }

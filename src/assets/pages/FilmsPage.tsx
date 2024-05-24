@@ -7,6 +7,7 @@ import { Col, Row } from "react-bootstrap";
 import ListGroup from "react-bootstrap/ListGroup";
 import FilmCard from "../components/FilmCard";
 import SearchForm from "../components/SearchForm";
+import PagePagination from "../components/PagePagination";
 
 
 
@@ -18,19 +19,21 @@ const FilmsPage = () => {
     const [searchInput, setSearchInput] = useState('');
     const [searchResults, setSearchResults] = useState<FilmsResponse | null>(null);
     const [searchParams, setSearchParams] = useSearchParams();
-    const [currentPage, setCurrentPage] = useState(1);
 
     const searchParamsQuery = searchParams.get("search");
+    const currentPageQuery = searchParams.get("page") || '1';
+
+    const currentPage = Number(currentPageQuery);
 
 
 
-    const getAllFilms = async () => {
+    const getAllFilms = async (page: number) => {
         setError(false);
         setLoading(true);
         setFilms(null);
 
         try {
-            const data = await getFilms();
+            const data = await getFilms(page);
 
             setFilms(data);
         } catch (err) {
@@ -67,23 +70,21 @@ const FilmsPage = () => {
         e.preventDefault();
         const trimmedSearch = searchInput.trim();
 
-        setCurrentPage(1);
-
         setSearchParams({ search: trimmedSearch, page: '1' });
 
         setSearchInput('');
     }
 
-    useEffect(() => {
-        getAllFilms();
-    }, []);
+    const handlePageChange = (page: number) => {
+        setSearchParams({ page: String(page) });
+    }
 
     useEffect(() => {
-        if (!searchParamsQuery) {
-            return;
+        if (searchParamsQuery) {
+            searchFilms(searchParamsQuery, currentPage);
+        } else {
+            getAllFilms(currentPage);
         }
-
-        searchFilms(searchParamsQuery, currentPage);
     }, [searchParamsQuery, currentPage]);
 
 
@@ -134,17 +135,16 @@ const FilmsPage = () => {
 
             {error && <p className='error'>{error}</p>}
 
-            {/* {films && (
-                <Page
-                    hasPreviousPage={films.prev_page_url !== null}
+            {films && (
+                <PagePagination
                     hasNextPage={films.next_page_url !== null}
+                    hasPreviousPage={films.prev_page_url !== null}
                     page={currentPage}
-                    totalPages={films.last_page
-                    }
+                    totalPages={films.last_page}
                     onPreviousPage={() => handlePageChange(currentPage - 1)}
                     onNextPage={() => handlePageChange(currentPage + 1)}
-                ></Page>
-            )} */}
+                />
+            )}
         </Container>
     );
 }

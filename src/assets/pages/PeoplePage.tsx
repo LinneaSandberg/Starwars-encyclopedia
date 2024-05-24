@@ -7,6 +7,7 @@ import { Col, Row } from "react-bootstrap";
 import PersonCard from "../components/PersonCard";
 import { useSearchParams } from "react-router-dom";
 import SearchForm from "../components/SearchForm";
+import PagePagination from "../components/PagePagination";
 
 
 
@@ -19,18 +20,20 @@ const PeoplePage = () => {
     const [searchInput, setSearchInput] = useState('');
     const [searchResults, setSearchResults] = useState<PeopleResponse | null>(null);
     const [searchParams, setSearchParams] = useSearchParams();
-    const [currentPage, setCurrentPage] = useState(1);
 
     const searchParamsQuery = searchParams.get("search");
+    const currentPageQuery = searchParams.get("page") || '1';
+
+    const currentPage = Number(currentPageQuery);
 
 
-    const getAllPeople = async () => {
+    const getAllPeople = async (page: number) => {
         setError(false);
         setLoading(true);
         setPeople(null);
 
         try {
-            const data = await getPeople();
+            const data = await getPeople(page);
 
             setPeople(data);
         } catch (err) {
@@ -44,7 +47,6 @@ const PeoplePage = () => {
     }
 
 
-    // search for people function with search query and page
     const searchPeople = async (searchQuery: string, page = 1) => {
         setError(false);
         setLoading(true);
@@ -69,23 +71,20 @@ const PeoplePage = () => {
         e.preventDefault();
         const trimmedSearch = searchInput.trim();
 
-        setCurrentPage(1);
-
         setSearchParams({ search: trimmedSearch, page: '1' });
-
         setSearchInput('');
     }
 
-    useEffect(() => {
-        getAllPeople();
-    }, []);
+    const handlePageChange = (page: number) => {
+        setSearchParams({ page: String(page) });
+    }
 
     useEffect(() => {
-        if (!searchParamsQuery) {
-            return;
+        if (searchParamsQuery) {
+            searchPeople(searchParamsQuery, currentPage);
+        } else {
+            getAllPeople(currentPage);
         }
-
-        searchPeople(searchParamsQuery, currentPage);
     }, [searchParamsQuery, currentPage]);
 
 
@@ -137,6 +136,17 @@ const PeoplePage = () => {
             {loading && <p>Loading...</p>}
 
             {error && <p className='error'>{error}</p>}
+
+            {people && (
+                <PagePagination
+                    hasNextPage={people.next_page_url !== null}
+                    hasPreviousPage={people.prev_page_url !== null}
+                    page={currentPage}
+                    totalPages={people.last_page}
+                    onPreviousPage={() => handlePageChange(currentPage - 1)}
+                    onNextPage={() => handlePageChange(currentPage + 1)}
+                />
+            )}
         </Container>
 
     );

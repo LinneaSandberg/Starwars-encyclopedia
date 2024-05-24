@@ -37,8 +37,8 @@ const get = async <T>(endpoint: string) => {
 /**
  * Get all people
  */
-export const getPeople = async () => {
-	return get<PeopleResponse>("/people");
+export const getPeople = async (page: number) => {
+	return get<PeopleResponse>(`/people/?page=${page}`);
 };
 
 /**
@@ -58,8 +58,8 @@ export const searchForPeople = async (query: string, page: number) => {
 /**
  * Get all films
  */
-export const getFilms = async () => {
-	return get<FilmsResponse>("/films");
+export const getFilms = async (page: number) => {
+	return get<FilmsResponse>(`/films/?page=${page}`);
 };
 
 /**
@@ -79,8 +79,8 @@ export const searchForFilms = async (query: string, page: number) => {
 /**
  * Get all planets
  */
-export const getPlanets = async () => {
-	return get<PlanetsResponse>("/planets");
+export const getPlanets = async (page: number) => {
+	return get<PlanetsResponse>(`/planets/?page=${page}`);
 };
 
 /**
@@ -100,8 +100,8 @@ export const searchForPlanets = async (query: string, page: number) => {
 /**
  * Get all species
  */
-export const getSpecies = async () => {
-	return get<SpeciesResponse>("/species");
+export const getSpecies = async (page: number) => {
+	return get<SpeciesResponse>(`/species/?page=${page}`);
 };
 
 /**
@@ -121,8 +121,8 @@ export const searchForSpecies = async (query: string, page: number) => {
 /**
  * Get all starships
  */
-export const getStarships = async () => {
-	return get<StarshipsResponse>("/starships");
+export const getStarships = async (page: number) => {
+	return get<StarshipsResponse>(`/starships/?page=${page}`);
 };
 
 /**
@@ -142,8 +142,8 @@ export const searchForStarships = async (query: string, page: number) => {
 /**
  * Get all vehicles
  */
-export const getVehicles = async () => {
-	return get<VehiclesResponse>("/vehicles");
+export const getVehicles = async (page: number) => {
+	return get<VehiclesResponse>(`/vehicles/?page=${page}`);
 };
 
 /**

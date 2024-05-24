@@ -7,6 +7,7 @@ import { Col, Row } from "react-bootstrap";
 import SpecieCard from "../components/SpecieCard";
 import { useSearchParams } from "react-router-dom";
 import SearchForm from "../components/SearchForm";
+import PagePagination from "../components/PagePagination";
 
 
 
@@ -19,17 +20,19 @@ const SpeciesPage = () => {
     const [searchInput, setSearchInput] = useState('');
     const [searchResults, setSearchResults] = useState<SpeciesResponse | null>(null);
     const [searchParams, setSearchParams] = useSearchParams();
-    const [currentPage, setCurrentPage] = useState(1);
 
     const searchParamsQuery = searchParams.get("search");
+    const currentPageQuery = searchParams.get("page") || '1';
 
-    const getAllSpecies = async () => {
+    const currentPage = Number(currentPageQuery);
+
+    const getAllSpecies = async (page: number) => {
         setError(false);
         setLoading(true);
         setSpecies(null);
 
         try {
-            const data = await getSpecies();
+            const data = await getSpecies(page);
 
             setSpecies(data);
         } catch (err) {
@@ -67,23 +70,20 @@ const SpeciesPage = () => {
 
         const trimmedSearch = searchInput.trim();
 
-        setCurrentPage(1);
-
         setSearchParams({ search: trimmedSearch, page: '1' });
-
         setSearchInput('');
     }
 
-    useEffect(() => {
-        getAllSpecies();
-    }, []);
+    const handlePageChange = (page: number) => {
+        setSearchParams({ page: String(page) });
+    }
 
     useEffect(() => {
-        if (!searchParamsQuery) {
-            return;
+        if (searchParamsQuery) {
+            searchSpecies(searchParamsQuery, currentPage);
+        } else {
+            getAllSpecies(currentPage);
         }
-
-        searchSpecies(searchParamsQuery, currentPage);
     }, [searchParamsQuery, currentPage]);
 
 
@@ -134,6 +134,17 @@ const SpeciesPage = () => {
             {loading && <p>Loading...</p>}
 
             {error && <p className='error'>{error}</p>}
+
+            {species && (
+                <PagePagination
+                    hasNextPage={species.next_page_url !== null}
+                    hasPreviousPage={species.prev_page_url !== null}
+                    page={currentPage}
+                    totalPages={species.last_page}
+                    onPreviousPage={() => handlePageChange(currentPage - 1)}
+                    onNextPage={() => handlePageChange(currentPage + 1)}
+                />
+            )}
 
         </Container >
     );

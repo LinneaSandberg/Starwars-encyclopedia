@@ -12,9 +12,9 @@ interface PageProps {
     onNextPage: () => void
 }
 
-const Page: React.FC<PageProps> = ({ hasNextPage, hasPreviousPage, page, totalPages, onPreviousPage, onNextPage }) => {
+const PagePagination: React.FC<PageProps> = ({ hasNextPage, hasPreviousPage, page, totalPages, onPreviousPage, onNextPage }) => {
     return (
-        <Container className="d-flex align-items-center">
+        <Container className="d-flex align-items-center justify-content-between">
             <Button
                 disabled={!hasPreviousPage}
                 onClick={onPreviousPage}
@@ -34,4 +34,4 @@ const Page: React.FC<PageProps> = ({ hasNextPage, hasPreviousPage, page, totalPa
     )
 }
 
-export default Page;
+export default PagePagination;

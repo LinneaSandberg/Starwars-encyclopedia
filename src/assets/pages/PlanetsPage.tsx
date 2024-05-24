@@ -7,6 +7,7 @@ import { Col, Row } from "react-bootstrap";
 import PlanetCard from "../components/PlanetCard";
 import { useSearchParams } from "react-router-dom";
 import SearchForm from "../components/SearchForm";
+import PagePagination from "../components/PagePagination";
 
 
 
@@ -19,18 +20,20 @@ const PlanetsPage = () => {
     const [searchInput, setSearchInput] = useState('');
     const [searchResults, setSearchResults] = useState<PlanetsResponse | null>(null);
     const [searchParams, setSearchParams] = useSearchParams();
-    const [currentPage, setCurrentPage] = useState(1);
 
     const searchParamsQuery = searchParams.get("search");
+    const currentPageQuery = searchParams.get("page") || '1';
+
+    const currentPage = Number(currentPageQuery);
 
 
-    const getAllPlanets = async () => {
+    const getAllPlanets = async (page: number) => {
         setError(false);
         setLoading(true);
         setPlanets(null);
 
         try {
-            const data = await getPlanets();
+            const data = await getPlanets(page);
 
             setPlanets(data);
         } catch (err) {
@@ -67,24 +70,22 @@ const PlanetsPage = () => {
         e.preventDefault();
         const trimmedSearch = searchInput.trim();
 
-        setCurrentPage(1);
-
         setSearchParams({ search: trimmedSearch, page: '1' });
-
         setSearchInput('');
     }
 
-    useEffect(() => {
-        getAllPlanets();
-    }, []);
+    const handlePageChange = (page: number) => {
+        setSearchParams({ page: String(page) });
+    }
 
     useEffect(() => {
-        if (!searchParamsQuery) {
-            return;
+        if (searchParamsQuery) {
+            searchPlanets(searchParamsQuery, currentPage);
+        } else {
+            getAllPlanets(currentPage);
         }
-
-        searchPlanets(searchParamsQuery, currentPage);
     }, [searchParamsQuery, currentPage]);
+
 
     return (
         <Container fluid className="d-flex flex-column align-items-center">
@@ -131,6 +132,18 @@ const PlanetsPage = () => {
             {loading && <p>Loading...</p>}
 
             {error && <p className='error'>{error}</p>}
+
+            {planets && (
+                <PagePagination
+                    hasNextPage={planets.next_page_url !== null}
+                    hasPreviousPage={planets.prev_page_url !== null}
+                    page={currentPage}
+                    totalPages={planets.last_page}
+                    onPreviousPage={() => handlePageChange(currentPage - 1)}
+                    onNextPage={() => handlePageChange(currentPage + 1)}
+                />
+
+            )}
         </Container>
     )
 }
