@@ -22,7 +22,7 @@ const FilmCard: React.FC<FilmCardProps> = ({ film }) => {
                         <ListGroup.Item>Release Date: {film.release_date}</ListGroup.Item>
                     </ListGroup>
                 </Container>
-                <Link to={`/films/${film.id}`} className='btn btn-success'>Read more</Link>
+                <Link to={`/films/${film.id}`} className='btn custom-button'>Read more</Link>
             </Card.Body>
         </Card>
     )

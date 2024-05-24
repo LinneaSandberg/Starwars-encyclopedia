@@ -31,7 +31,7 @@ const PersonCard: React.FC<PersonCardProps> = ({ people }) => {
                         <ListGroup.Item>In {people.films_count} movies</ListGroup.Item>
                     </ListGroup>
                 </Container>
-                <Link to={`/people/${people.id}`} className='btn btn-success'>Read more</Link>
+                <Link to={`/people/${people.id}`} className='btn custom-button'>Read more</Link>
             </Card.Body>
         </Card>
     )

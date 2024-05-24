@@ -16,17 +16,19 @@ const PagePagination: React.FC<PageProps> = ({ hasNextPage, hasPreviousPage, pag
     return (
         <Container className="d-flex align-items-center justify-content-between">
             <Button
+                variant="secondary"
                 disabled={!hasPreviousPage}
                 onClick={onPreviousPage}
-                variant="info"
+                className="custom-button"
             >Previous</Button>
 
             <p className="m-0">Page {page} of {totalPages}</p>
 
             <Button
+                variant="secondary"
                 disabled={!hasNextPage}
                 onClick={onNextPage}
-                variant="info"
+                className="custom-button"
             >Next
             </Button>
 

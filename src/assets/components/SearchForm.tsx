@@ -8,10 +8,6 @@ interface SearchFormProps {
     searchInput: string;
     setSearchInput: (searchInput: string) => void;
     handleUserInput: (e: React.FormEvent) => void;
-
-
-
-
 }
 
 const SearchForm: React.FC<SearchFormProps> = ({ searchInput, setSearchInput, handleUserInput }) => {
@@ -19,7 +15,6 @@ const SearchForm: React.FC<SearchFormProps> = ({ searchInput, setSearchInput, ha
 
 
     return (
-        // <Container fluid className="d-flex flex-column">
         <Form onSubmit={handleUserInput}>
             <Form.Group controlId='searchQuery'>
                 <Form.Label className="mt-5">Make a search</Form.Label>
@@ -32,16 +27,17 @@ const SearchForm: React.FC<SearchFormProps> = ({ searchInput, setSearchInput, ha
                 />
             </Form.Group>
 
-            <Container className="d-flex justify-content-end mt-2">
+            <Container className="d-flex justify-content-end mt-2 p-0">
                 <Button
+                    className='custom-button mt-1'
                     type="submit"
-                    variant="success"
+                    variant="secondary"
+                    disabled={searchInput.length === 0}
                 >
                     Search
                 </Button>
             </Container>
         </Form>
-        // </Container>
     )
 }
 

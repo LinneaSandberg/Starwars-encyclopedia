@@ -21,7 +21,7 @@ const StarshipCard: React.FC<StarshipCardProps> = ({ starship }) => {
                         <ListGroup.Item>{starship.passengers} passengers</ListGroup.Item>
                     </ListGroup>
                 </Container>
-                <Link to={`/starships/${starship.id}`} className='btn btn-success'>Read more</Link>
+                <Link to={`/starships/${starship.id}`} className='btn custom-button'>Read more</Link>
             </Card.Body>
         </Card>
     )

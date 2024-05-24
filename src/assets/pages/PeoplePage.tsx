@@ -10,8 +10,6 @@ import SearchForm from "../components/SearchForm";
 import PagePagination from "../components/PagePagination";
 
 
-
-
 const PeoplePage = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | false>(false);
@@ -45,7 +43,6 @@ const PeoplePage = () => {
         }
         setLoading(false);
     }
-
 
     const searchPeople = async (searchQuery: string, page = 1) => {
         setError(false);
@@ -147,6 +144,7 @@ const PeoplePage = () => {
                     onNextPage={() => handlePageChange(currentPage + 1)}
                 />
             )}
+
         </Container>
 
     );

@@ -21,7 +21,7 @@ const PlanetCard: React.FC<PlanetCardProps> = ({ planet }) => {
                         <ListGroup.Item>In {planet.films_count} movies</ListGroup.Item>
                     </ListGroup>
                 </Container>
-                <Link to={`/planets/${planet.id}`} className='btn btn-success'>Read more</Link>
+                <Link to={`/planets/${planet.id}`} className='btn custom-button'>Read more</Link>
             </Card.Body>
         </Card>
     )

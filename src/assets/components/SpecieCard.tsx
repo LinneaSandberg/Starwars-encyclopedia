@@ -21,7 +21,7 @@ const SpecieCard: React.FC<SpecieCardProps> = ({ specie }) => {
                         <ListGroup.Item>Designation: {specie.designation}</ListGroup.Item>
                     </ListGroup>
                 </Container>
-                <Link to={`/species/${specie.id}`} className='btn btn-success'>Read more</Link>
+                <Link to={`/species/${specie.id}`} className='btn custom-button'>Read more</Link>
             </Card.Body>
         </Card>
     )

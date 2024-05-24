@@ -21,7 +21,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle }) => {
                         <ListGroup.Item>{vehicle.crew} crew members</ListGroup.Item>
                     </ListGroup>
                 </Container>
-                <Link to={`/vehicles/${vehicle.id}`} className='btn btn-success'>Read more</Link>
+                <Link to={`/vehicles/${vehicle.id}`} className='btn custom-button'>Read more</Link>
             </Card.Body>
         </Card>
     )
