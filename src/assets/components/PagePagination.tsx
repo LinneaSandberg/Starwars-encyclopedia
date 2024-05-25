@@ -13,7 +13,7 @@ interface PageProps {
 
 const PagePagination: React.FC<PageProps> = ({ hasNextPage, hasPreviousPage, page, totalPages, onPreviousPage, onNextPage }) => {
     return (
-        <Container className="d-flex align-items-center justify-content-between">
+        <Container className="d-flex align-items-center justify-content-between mb-3">
             <Button
                 variant="secondary"
                 disabled={!hasPreviousPage}
