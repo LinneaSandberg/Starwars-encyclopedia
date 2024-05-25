@@ -8,6 +8,7 @@ import VehicleCard from "../components/VehicleCard";
 import { useSearchParams } from "react-router-dom";
 import SearchForm from "../components/SearchForm";
 import PagePagination from "../components/PagePagination";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 
 
@@ -132,7 +133,7 @@ const VehiclesPage = () => {
             </Container>
 
 
-            {loading && <p>Loading...</p>}
+            {loading && <LoadingSpinner />}
 
             {error && <p className='error'>{error}</p>}
 

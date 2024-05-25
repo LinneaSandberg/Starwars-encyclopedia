@@ -8,6 +8,7 @@ import PlanetCard from "../components/PlanetCard";
 import { useSearchParams } from "react-router-dom";
 import SearchForm from "../components/SearchForm";
 import PagePagination from "../components/PagePagination";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 
 
@@ -129,7 +130,7 @@ const PlanetsPage = () => {
                 </Row>
             </Container>
 
-            {loading && <p>Loading...</p>}
+            {loading && <LoadingSpinner />}
 
             {error && <p className='error'>{error}</p>}
 

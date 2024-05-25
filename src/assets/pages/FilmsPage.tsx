@@ -8,6 +8,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import FilmCard from "../components/FilmCard";
 import SearchForm from "../components/SearchForm";
 import PagePagination from "../components/PagePagination";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 
 
@@ -45,6 +46,7 @@ const FilmsPage = () => {
         }
         setLoading(false);
     }
+
 
     const searchFilms = async (searchQuery: string, page = 1) => {
         setError(false);
@@ -131,7 +133,7 @@ const FilmsPage = () => {
                 </Row>
             </Container>
 
-            {loading && <p>Loading...</p>}
+            {loading && <LoadingSpinner />}
 
             {error && <p className='error'>{error}</p>}
 
