@@ -11,7 +11,7 @@ interface FilmCardProps {
 
 const FilmCard: React.FC<FilmCardProps> = ({ film }) => {
     return (
-        <Card border="light" style={{ width: "20rem" }}>
+        <Card className='card-border card-collection mb-4' style={{ width: "20rem" }}>
             <Card.Header as="h5">{film.title}</Card.Header>
             <Card.Body className="d-flex flex-column justify-content-end">
                 <Card.Img className='custom-img' variant="top" src={`${film.image_url}`} />

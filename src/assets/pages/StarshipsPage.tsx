@@ -9,6 +9,7 @@ import { useSearchParams } from "react-router-dom";
 import SearchForm from "../components/SearchForm";
 import PagePagination from "../components/PagePagination";
 import LoadingSpinner from "../components/LoadingSpinner";
+import ErrorMessage from "../components/ErrorMessage";
 
 
 
@@ -113,8 +114,8 @@ const StarshipsPage = () => {
             )}
 
 
-            <h2 className="m-3">Starships</h2>
-            <Container className="card-container">
+            <h2 className="m-3 mb-4">Starships</h2>
+            <Container fluid>
                 <Row className="justify-content-center">
                     {starships && (
                         <>
@@ -130,7 +131,9 @@ const StarshipsPage = () => {
 
             {loading && <LoadingSpinner />}
 
-            {error && <p className='error'>{error}</p>}
+            {error && (
+                <ErrorMessage message={error} />
+            )}
 
             {starships && (
                 <PagePagination

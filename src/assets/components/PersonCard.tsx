@@ -16,7 +16,7 @@ const PersonCard: React.FC<PersonCardProps> = ({ people }) => {
 
 
     return (
-        <Card border="light" style={{ width: "20rem" }}>
+        <Card className='card-border card-collection mb-4' style={{ width: "20rem" }}>
             <Card.Header as="h5">{people.name}</Card.Header>
             <Card.Body className="d-flex flex-column justify-content-end">
                 <Card.Img

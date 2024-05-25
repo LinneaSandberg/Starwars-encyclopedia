@@ -11,9 +11,9 @@ interface PlanetCardProps {
 
 const PlanetCard: React.FC<PlanetCardProps> = ({ planet }) => {
     return (
-        <Card border="light" style={{ width: "20rem" }}>
+        <Card className='card-border card-collection mb-4' style={{ width: "20rem" }}>
+            <Card.Header as="h5">{planet.name}</Card.Header>
             <Card.Body className="d-flex flex-column justify-content-end">
-                <Card.Title>{planet.name}</Card.Title>
                 <Container>
                     <ListGroup className="list-group-flush">
                         <ListGroup.Item>Population: {planet.population}</ListGroup.Item>

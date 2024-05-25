@@ -11,9 +11,9 @@ interface SpecieCardProps {
 
 const SpecieCard: React.FC<SpecieCardProps> = ({ specie }) => {
     return (
-        <Card border="light" style={{ width: "20rem" }}>
+        <Card className='card-border card-collection mb-4' style={{ width: "20rem" }}>
+            <Card.Header as="h5">{specie.name}</Card.Header>
             <Card.Body className="d-flex flex-column justify-content-end">
-                <Card.Title>{specie.name}</Card.Title>
                 <Container>
                     <ListGroup className="list-group-flush">
                         <ListGroup.Item>Classification: {specie.classification}</ListGroup.Item>

@@ -1,6 +1,5 @@
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
-
 import React from 'react'
 
 interface PageProps {
@@ -22,7 +21,7 @@ const PagePagination: React.FC<PageProps> = ({ hasNextPage, hasPreviousPage, pag
                 className="custom-button"
             >Previous</Button>
 
-            <p className="m-0">Page {page} of {totalPages}</p>
+            <p className="m-0">Page {page} / {totalPages}</p>
 
             <Button
                 variant="secondary"

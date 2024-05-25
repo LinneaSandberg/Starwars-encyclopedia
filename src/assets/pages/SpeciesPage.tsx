@@ -9,6 +9,7 @@ import { useSearchParams } from "react-router-dom";
 import SearchForm from "../components/SearchForm";
 import PagePagination from "../components/PagePagination";
 import LoadingSpinner from "../components/LoadingSpinner";
+import ErrorMessage from "../components/ErrorMessage";
 
 
 
@@ -116,7 +117,7 @@ const SpeciesPage = () => {
             )}
 
 
-            <h2 className="m-3">Species</h2>
+            <h2 className="m-3 mb-4">Species</h2>
             <Container fluid>
                 <Row className="justify-content-center">
                     {species && (
@@ -134,7 +135,9 @@ const SpeciesPage = () => {
 
             {loading && <LoadingSpinner />}
 
-            {error && <p className='error'>{error}</p>}
+            {error && (
+                <ErrorMessage message={error} />
+            )}
 
             {species && (
                 <PagePagination

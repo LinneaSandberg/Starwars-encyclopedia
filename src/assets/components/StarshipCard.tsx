@@ -11,9 +11,9 @@ interface StarshipCardProps {
 
 const StarshipCard: React.FC<StarshipCardProps> = ({ starship }) => {
     return (
-        <Card border="light" style={{ width: "20rem" }}>
+        <Card className='card-border card-collection mb-4' style={{ width: "20rem" }}>
+            <Card.Header as="h5">{starship.name}</Card.Header>
             <Card.Body className="d-flex flex-column justify-content-end">
-                <Card.Title>{starship.name}</Card.Title>
                 <Container>
                     <ListGroup className="list-group-flush">
                         <ListGroup.Item>Model: {starship.model}</ListGroup.Item>

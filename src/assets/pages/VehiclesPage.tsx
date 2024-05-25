@@ -9,6 +9,7 @@ import { useSearchParams } from "react-router-dom";
 import SearchForm from "../components/SearchForm";
 import PagePagination from "../components/PagePagination";
 import LoadingSpinner from "../components/LoadingSpinner";
+import ErrorMessage from "../components/ErrorMessage";
 
 
 
@@ -116,14 +117,13 @@ const VehiclesPage = () => {
             )}
 
 
-            <h2 className="m-3">Vehicles</h2>
+            <h2 className="m-3 mb-4">Vehicles</h2>
             <Container fluid>
                 <Row className="justify-content-center">
                     {vehicles && (
                         <>
                             {vehicles.data.map(vehicle => (
                                 <Col key={vehicle.id} xs={12} sm={6} md={4} lg={3} className="mb-3 d-flex justify-content-center">
-
                                     <VehicleCard key={vehicle.id} vehicle={vehicle} />
                                 </Col>
                             ))}
@@ -135,7 +135,9 @@ const VehiclesPage = () => {
 
             {loading && <LoadingSpinner />}
 
-            {error && <p className='error'>{error}</p>}
+            {error && (
+                <ErrorMessage message={error} />
+            )}
 
             {vehicles && (
                 <PagePagination
