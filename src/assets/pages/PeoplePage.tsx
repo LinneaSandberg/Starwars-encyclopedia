@@ -46,7 +46,7 @@ const PeoplePage = () => {
         setLoading(false);
     }
 
-    const searchPeople = async (searchQuery: string, page = 1) => {
+    const searchPeople = async (searchQuery: string, page: number) => {
         setError(false);
         setLoading(true);
         setSearchResults(null);
@@ -90,6 +90,7 @@ const PeoplePage = () => {
     return (
 
         <Container fluid className="d-flex flex-column align-items-center">
+            <h2>People</h2>
 
             <Container>
                 <SearchForm searchInput={searchInput} setSearchInput={setSearchInput} handleUserInput={handleUserInput} />
@@ -102,7 +103,7 @@ const PeoplePage = () => {
                             <p>Showing results for your search of "{searchParamsQuery}"</p>
                             <ListGroup>
                                 {searchResults.data.map(person => (
-                                    <PersonCard key={person.id} people={person} />
+                                    <PersonCard key={person.id} person={person} />
                                 ))}
                             </ListGroup>
                         </>
@@ -116,15 +117,14 @@ const PeoplePage = () => {
             )}
 
 
-            <h2 className="m-3 mb-4">People</h2>
             <Container fluid>
                 <Row className="justify-content-center">
                     {people && (
                         <>
-                            {people.data.map(people => (
-                                <Col key={people.id} xs={12} sm={6} md={4} lg={3} className="mb-3 d-flex justify-content-center">
+                            {people.data.map(person => (
+                                <Col key={person.id} xs={12} sm={6} md={4} lg={3} className="mb-3 d-flex justify-content-center">
 
-                                    <PersonCard key={people.id} people={people} />
+                                    <PersonCard key={person.id} person={person} />
                                 </Col>
                             ))}
                         </>

@@ -17,7 +17,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ searchInput, setSearchInput, ha
     return (
         <Form onSubmit={handleUserInput}>
             <Form.Group controlId='searchQuery'>
-                <Form.Label className="mt-5">Make a search</Form.Label>
+                <Form.Label>Make a search</Form.Label>
                 <Form.Control
                     type="text"
                     placeholder="Search"
@@ -29,7 +29,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ searchInput, setSearchInput, ha
 
             <Container className="d-flex justify-content-end mt-2 p-0">
                 <Button
-                    className='custom-button mt-1'
+                    className='custom-button mt-1 mb-5'
                     type="submit"
                     variant="secondary"
                     disabled={searchInput.length === 0}

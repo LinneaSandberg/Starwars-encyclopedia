@@ -48,7 +48,7 @@ const VehiclesPage = () => {
         setLoading(false);
     }
 
-    const searchVehicles = async (searchQuery: string, page = 1) => {
+    const searchVehicles = async (searchQuery: string, page: number) => {
         setError(false);
         setLoading(true);
         setSearchResults(null);
@@ -91,6 +91,7 @@ const VehiclesPage = () => {
 
     return (
         <Container fluid className="d-flex flex-column align-items-center">
+            <h2>Vehicles</h2>
 
             <Container>
                 <SearchForm searchInput={searchInput} setSearchInput={setSearchInput} handleUserInput={handleUserInput} />
@@ -117,7 +118,6 @@ const VehiclesPage = () => {
             )}
 
 
-            <h2 className="m-3 mb-4">Vehicles</h2>
             <Container fluid>
                 <Row className="justify-content-center">
                     {vehicles && (

@@ -47,7 +47,7 @@ const StarshipsPage = () => {
         setLoading(false);
     }
 
-    const searchStarships = async (searchQuery: string, page = 1) => {
+    const searchStarships = async (searchQuery: string, page: number) => {
         setError(false);
         setLoading(true);
         setSearchResults(null);
@@ -89,6 +89,7 @@ const StarshipsPage = () => {
 
     return (
         <Container fluid className="d-flex flex-column align-items-center">
+            <h2>Starships</h2>
 
             <Container>
                 <SearchForm searchInput={searchInput} setSearchInput={setSearchInput} handleUserInput={handleUserInput} />
@@ -114,7 +115,6 @@ const StarshipsPage = () => {
             )}
 
 
-            <h2 className="m-3 mb-4">Starships</h2>
             <Container fluid>
                 <Row className="justify-content-center">
                     {starships && (
