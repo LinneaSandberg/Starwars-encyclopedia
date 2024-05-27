@@ -35,10 +35,13 @@ const get = async <T>(endpoint: string) => {
 };
 
 /**
- * Get all people
+ * Get all people or search for people
  */
-export const getPeople = async (page: number) => {
-	return get<PeopleResponse>(`/people/?page=${page}`);
+export const getPeople = async (page: number, query: string = "") => {
+	const url = query
+		? `/people/?search=${query}&page=${page}`
+		: `/people/?page=${page}`;
+	return get<PeopleResponse>(url);
 };
 
 /**
@@ -49,17 +52,13 @@ export const getPerson = async (person_id: number) => {
 };
 
 /**
- * Search for people
+ * Get all films or search for films
  */
-export const searchForPeople = async (query: string, page: number) => {
-	return get<PeopleResponse>(`/people/?search=${query}&page=${page}`);
-};
-
-/**
- * Get all films
- */
-export const getFilms = async (page: number) => {
-	return get<FilmsResponse>(`/films/?page=${page}`);
+export const getFilms = async (page: number, query: string = "") => {
+	const url = query
+		? `/films/?search=${query}&page=${page}`
+		: `/films/?page=${page}`;
+	return get<FilmsResponse>(url);
 };
 
 /**
@@ -70,17 +69,13 @@ export const getFilm = async (film_id: number) => {
 };
 
 /**
- * Search for films
+ * Get all planets or search for planets
  */
-export const searchForFilms = async (query: string, page: number) => {
-	return get<FilmsResponse>(`/films/?search=${query}&page=${page}`);
-};
-
-/**
- * Get all planets
- */
-export const getPlanets = async (page: number) => {
-	return get<PlanetsResponse>(`/planets/?page=${page}`);
+export const getPlanets = async (page: number, query: string = "") => {
+	const url = query
+		? `/planets/?search=${query}&page=${page}`
+		: `/planets/?page=${page}`;
+	return get<PlanetsResponse>(url);
 };
 
 /**
@@ -91,17 +86,13 @@ export const getPlanet = async (planet_id: number) => {
 };
 
 /**
- * Search for planets
+ * Get all species or search for species
  */
-export const searchForPlanets = async (query: string, page: number) => {
-	return get<PlanetsResponse>(`/planets/?search=${query}&page=${page}`);
-};
-
-/**
- * Get all species
- */
-export const getSpecies = async (page: number) => {
-	return get<SpeciesResponse>(`/species/?page=${page}`);
+export const getSpecies = async (page: number, query: string = "") => {
+	const url = query
+		? `/species/?search=${query}&page=${page}`
+		: `/species/?page=${page}`;
+	return get<SpeciesResponse>(url);
 };
 
 /**
@@ -112,17 +103,13 @@ export const getSpecie = async (specie_id: number) => {
 };
 
 /**
- * Search for species
+ * Get all starships or search for starships
  */
-export const searchForSpecies = async (query: string, page: number) => {
-	return get<SpeciesResponse>(`/species/?search=${query}&page=${page}`);
-};
-
-/**
- * Get all starships
- */
-export const getStarships = async (page: number) => {
-	return get<StarshipsResponse>(`/starships/?page=${page}`);
+export const getStarships = async (page: number, query: string = "") => {
+	const url = query
+		? `/starships/?search=${query}&page=${page}`
+		: `/starships/?page=${page}`;
+	return get<StarshipsResponse>(url);
 };
 
 /**
@@ -133,17 +120,13 @@ export const getStarship = async (starship_id: number) => {
 };
 
 /**
- * Search for starships
+ * Get all vehicles or search for vehicles
  */
-export const searchForStarships = async (query: string, page: number) => {
-	return get<StarshipsResponse>(`/starships/?search=${query}&page=${page}`);
-};
-
-/**
- * Get all vehicles
- */
-export const getVehicles = async (page: number) => {
-	return get<VehiclesResponse>(`/vehicles/?page=${page}`);
+export const getVehicles = async (page: number, query: string = "") => {
+	const url = query
+		? `/vehicles/?search=${query}&page=${page}`
+		: `/vehicles/?page=${page}`;
+	return get<VehiclesResponse>(url);
 };
 
 /**
@@ -151,11 +134,4 @@ export const getVehicles = async (page: number) => {
  */
 export const getVehicle = async (vehicle_id: number) => {
 	return get<Vehicle>(`/vehicles/${vehicle_id}`);
-};
-
-/**
- * Search for vehicles
- */
-export const searchForVehicles = async (query: string, page: number) => {
-	return get<VehiclesResponse>(`/vehicles/?search=${query}&page=${page}`);
 };

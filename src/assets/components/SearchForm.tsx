@@ -1,7 +1,6 @@
 import React from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import Container from "react-bootstrap/Container";
 
 
 interface SearchFormProps {
@@ -15,7 +14,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ searchInput, setSearchInput, ha
 
 
     return (
-        <Form onSubmit={handleUserInput}>
+        <Form className='search-form' onSubmit={handleUserInput}>
             <Form.Group controlId='searchQuery'>
                 <Form.Label>Make a search</Form.Label>
                 <Form.Control
@@ -27,16 +26,14 @@ const SearchForm: React.FC<SearchFormProps> = ({ searchInput, setSearchInput, ha
                 />
             </Form.Group>
 
-            <Container className="d-flex justify-content-end mt-2 p-0">
-                <Button
-                    className='custom-button mt-1 mb-5'
-                    type="submit"
-                    variant="secondary"
-                    disabled={searchInput.length === 0}
-                >
-                    Search
-                </Button>
-            </Container>
+            <Button
+                className='custom-button mt-1 mb-5'
+                type="submit"
+                variant="secondary"
+                disabled={searchInput.length === 0}
+            >
+                Search
+            </Button>
         </Form>
     )
 }

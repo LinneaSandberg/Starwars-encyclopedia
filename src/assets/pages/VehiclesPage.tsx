@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { VehiclesResponse } from "../types/StarWarsAPI";
-import { getVehicles, searchForVehicles } from "../services/StarWarsAPI";
+import { getVehicles } from "../services/StarWarsAPI";
 import Container from "react-bootstrap/Container";
-import ListGroup from "react-bootstrap/ListGroup";
 import { Col, Row } from "react-bootstrap";
 import VehicleCard from "../components/VehicleCard";
 import { useSearchParams } from "react-router-dom";
@@ -12,29 +11,25 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import ErrorMessage from "../components/ErrorMessage";
 
 
-
 const VehiclesPage = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | false>(false);
     const [vehicles, setVehicles] = useState<VehiclesResponse | null>(null);
-
     const [searchInput, setSearchInput] = useState('');
-    const [searchResults, setSearchResults] = useState<VehiclesResponse | null>(null);
     const [searchParams, setSearchParams] = useSearchParams();
 
     const searchParamsQuery = searchParams.get("search");
     const currentPageQuery = searchParams.get("page") || '1';
-
     const currentPage = Number(currentPageQuery);
 
 
-    const getAllVerhicles = async (page: number) => {
+    const getAllVerhicles = async (page: number, query: string) => {
         setError(false);
         setLoading(true);
         setVehicles(null);
 
         try {
-            const data = await getVehicles(page);
+            const data = await getVehicles(page, query);
 
             setVehicles(data);
         } catch (err) {
@@ -48,26 +43,6 @@ const VehiclesPage = () => {
         setLoading(false);
     }
 
-    const searchVehicles = async (searchQuery: string, page: number) => {
-        setError(false);
-        setLoading(true);
-        setSearchResults(null);
-
-        try {
-            const data = await searchForVehicles(searchQuery, page);
-
-            setSearchResults(data);
-
-        } catch (err) {
-            if (err instanceof Error) {
-                setError(err.message);
-            } else {
-                setError('An error occurred');
-            }
-        }
-        setLoading(false);
-    }
-
     const handleUserInput = (e: React.FormEvent) => {
         e.preventDefault();
         const trimmedSearch = searchInput.trim();
@@ -77,15 +52,11 @@ const VehiclesPage = () => {
     }
 
     const handlePageChange = (page: number) => {
-        setSearchParams({ page: String(page) });
-    }
+        setSearchParams({ search: searchParamsQuery || '', page: String(page) });
+    };
 
     useEffect(() => {
-        if (searchParamsQuery) {
-            searchVehicles(searchParamsQuery, currentPage);
-        } else {
-            getAllVerhicles(currentPage);
-        }
+        getAllVerhicles(currentPage, searchParamsQuery ?? '');
     }, [searchParamsQuery, currentPage]);
 
 
@@ -93,64 +64,56 @@ const VehiclesPage = () => {
         <Container fluid className="d-flex flex-column align-items-center">
             <h2>Vehicles</h2>
 
-            <Container>
-                <SearchForm searchInput={searchInput} setSearchInput={setSearchInput} handleUserInput={handleUserInput} />
-            </Container>
 
-            {searchResults && (
-                <>
-                    {searchResults.data.length > 0 ? (
-                        <>
-                            <p>Showing results for your search of "{searchParamsQuery}"</p>
-                            <ListGroup>
-                                {searchResults.data.map(vehicle => (
-                                    <VehicleCard key={vehicle.id} vehicle={vehicle} />
-                                ))}
-                            </ListGroup>
-                        </>
-
-                    ) : (
-                        <>
-                            <p>No results found for your search of "{searchParamsQuery}"</p>
-                        </>
-                    )}
-                </>
-            )}
-
-
-            <Container fluid>
-                <Row className="justify-content-center">
-                    {vehicles && (
-                        <>
-                            {vehicles.data.map(vehicle => (
-                                <Col key={vehicle.id} xs={12} sm={6} md={4} lg={3} className="mb-3 d-flex justify-content-center">
-                                    <VehicleCard key={vehicle.id} vehicle={vehicle} />
-                                </Col>
-                            ))}
-                        </>
-                    )}
-                </Row>
-            </Container>
-
-
-            {loading && <LoadingSpinner />}
-
-            {error && (
-                <ErrorMessage message={error} />
-            )}
+            <SearchForm searchInput={searchInput} setSearchInput={setSearchInput} handleUserInput={handleUserInput} />
 
             {vehicles && (
-                <PagePagination
-                    hasNextPage={vehicles.next_page_url !== null}
-                    hasPreviousPage={vehicles.prev_page_url !== null}
-                    page={currentPage}
-                    totalPages={vehicles.last_page}
-                    onPreviousPage={() => handlePageChange(currentPage - 1)}
-                    onNextPage={() => handlePageChange(currentPage + 1)}
-                />
+                <>
+                    {searchParamsQuery ? (
+                        <Container fluid>
+                            <p>Showing results for your search of "{searchParamsQuery}"</p>
+                            <Row className="justify-content-center">
+                                {vehicles.data.map(vehicle => (
+                                    <Col key={vehicle.id} xs={12} sm={6} md={4} lg={3} className="mb-3 d-flex justify-content-center">
+                                        <VehicleCard key={vehicle.id} vehicle={vehicle} />
+                                    </Col>
+                                ))}
+                            </Row>
+                        </Container>
+
+                    ) : (
+
+                        <Container fluid>
+                            <Row className="justify-content-center">
+                                {vehicles && !searchParamsQuery && (
+                                    vehicles.data.map(vehicle => (
+                                        <Col key={vehicle.id} xs={12} sm={6} md={4} lg={3} className="mb-3 d-flex justify-content-center">
+                                            <VehicleCard key={vehicle.id} vehicle={vehicle} />
+                                        </Col>
+                                    ))
+                                )}
+                            </Row>
+                        </Container>
+                    )}
+
+                    {loading && <LoadingSpinner />}
+
+                    {error && (
+                        <ErrorMessage message={error} />
+                    )}
+
+                    <PagePagination
+                        hasNextPage={vehicles.next_page_url !== null}
+                        hasPreviousPage={vehicles.prev_page_url !== null}
+                        page={currentPage}
+                        totalPages={vehicles.last_page}
+                        onPreviousPage={() => handlePageChange(currentPage - 1)}
+                        onNextPage={() => handlePageChange(currentPage + 1)}
+                    />
+                </>
             )}
         </Container >
-    );
+    )
 }
 
 export default VehiclesPage;
