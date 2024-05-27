@@ -4,7 +4,7 @@ import { getPlanets } from "../services/StarWarsAPI";
 import Container from "react-bootstrap/Container";
 import { Col, Row } from "react-bootstrap";
 import PlanetCard from "../components/PlanetCard";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import SearchForm from "../components/SearchForm";
 import PagePagination from "../components/PagePagination";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -66,9 +66,16 @@ const PlanetsPage = () => {
 
             <SearchForm searchInput={searchInput} setSearchInput={setSearchInput} handleUserInput={handleUserInput} />
 
-            {planets && (
+            {planets && planets.total <= 0 ? (
+                <Container fluid>
+                    <p>No planets found</p>
+                    <Link to="/planets" role="button" className="back-button" >
+                        &laquo; Back to planets
+                    </Link>
+                </Container>
+            ) : (
                 <>
-                    {searchParamsQuery ? (
+                    {planets && searchParamsQuery ? (
                         <Container fluid>
                             <p>Showing results for your search of "{searchParamsQuery}"</p>
                             <Row className="justify-content-center">
@@ -101,14 +108,16 @@ const PlanetsPage = () => {
                         <ErrorMessage message={error} />
                     )}
 
-                    <PagePagination
-                        hasNextPage={planets.next_page_url !== null}
-                        hasPreviousPage={planets.prev_page_url !== null}
-                        page={currentPage}
-                        totalPages={planets.last_page}
-                        onPreviousPage={() => handlePageChange(currentPage - 1)}
-                        onNextPage={() => handlePageChange(currentPage + 1)}
-                    />
+                    {planets && planets.total > 0 && (
+                        <PagePagination
+                            hasNextPage={planets.next_page_url !== null}
+                            hasPreviousPage={planets.prev_page_url !== null}
+                            page={currentPage}
+                            totalPages={planets.last_page}
+                            onPreviousPage={() => handlePageChange(currentPage - 1)}
+                            onNextPage={() => handlePageChange(currentPage + 1)}
+                        />
+                    )}
                 </>
             )}
         </Container>

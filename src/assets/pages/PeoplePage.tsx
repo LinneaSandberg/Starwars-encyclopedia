@@ -4,7 +4,7 @@ import { PeopleResponse } from "../types/StarWarsAPI";
 import Container from "react-bootstrap/Container";
 import { Col, Row } from "react-bootstrap";
 import PersonCard from "../components/PersonCard";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import SearchForm from "../components/SearchForm";
 import PagePagination from "../components/PagePagination";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -65,9 +65,17 @@ const PeoplePage = () => {
 
             <SearchForm searchInput={searchInput} setSearchInput={setSearchInput} handleUserInput={handleUserInput} />
 
-            {people && (
+            {people && people.total <= 0 ? (
+                <Container fluid>
+                    <p>No people found</p>
+                    <Link to="/people" role="button" className="back-button" >
+                        &laquo; Back to people
+                    </Link>
+                </Container>
+
+            ) : (
                 <>
-                    {searchParamsQuery ? (
+                    {people && searchParamsQuery ? (
                         <Container fluid >
                             <p>Showing results for your search of "{searchParamsQuery}"</p>
                             <Row className="justify-content-center">
@@ -100,14 +108,16 @@ const PeoplePage = () => {
                         <ErrorMessage message={error} />
                     )}
 
-                    <PagePagination
-                        hasNextPage={people.next_page_url !== null}
-                        hasPreviousPage={people.prev_page_url !== null}
-                        page={currentPage}
-                        totalPages={people.last_page}
-                        onPreviousPage={() => handlePageChange(currentPage - 1)}
-                        onNextPage={() => handlePageChange(currentPage + 1)}
-                    />
+                    {people && people.total > 0 && (
+                        <PagePagination
+                            hasNextPage={people.next_page_url !== null}
+                            hasPreviousPage={people.prev_page_url !== null}
+                            page={currentPage}
+                            totalPages={people.last_page}
+                            onPreviousPage={() => handlePageChange(currentPage - 1)}
+                            onNextPage={() => handlePageChange(currentPage + 1)}
+                        />
+                    )}
                 </>
             )}
         </Container>

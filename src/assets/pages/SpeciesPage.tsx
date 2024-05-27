@@ -4,7 +4,7 @@ import { getSpecies } from "../services/StarWarsAPI";
 import Container from "react-bootstrap/Container";
 import { Col, Row } from "react-bootstrap";
 import SpecieCard from "../components/SpecieCard";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import SearchForm from "../components/SearchForm";
 import PagePagination from "../components/PagePagination";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -66,9 +66,17 @@ const SpeciesPage = () => {
             <SearchForm searchInput={searchInput} setSearchInput={setSearchInput} handleUserInput={handleUserInput} />
 
 
-            {species && (
+            {species && species.total <= 0 ? (
+                <Container fluid>
+                    <p>No species found</p>
+                    <Link to="/species" role="button" className="back-button" >
+                        &laquo; Back to species
+                    </Link>
+                </Container>
+
+            ) : (
                 <>
-                    {searchParamsQuery ? (
+                    {species && searchParamsQuery ? (
                         <Container fluid>
                             <p>Showing results for your search of "{searchParamsQuery}"</p>
                             <Row className="justify-content-center">
@@ -81,6 +89,7 @@ const SpeciesPage = () => {
                         </Container>
 
                     ) : (
+
                         <Container fluid>
                             <Row className="justify-content-center">
                                 {species && !searchParamsQuery && (
@@ -100,14 +109,16 @@ const SpeciesPage = () => {
                         <ErrorMessage message={error} />
                     )}
 
-                    <PagePagination
-                        hasNextPage={species.next_page_url !== null}
-                        hasPreviousPage={species.prev_page_url !== null}
-                        page={currentPage}
-                        totalPages={species.last_page}
-                        onPreviousPage={() => handlePageChange(currentPage - 1)}
-                        onNextPage={() => handlePageChange(currentPage + 1)}
-                    />
+                    {species && species.total > 0 && (
+                        <PagePagination
+                            hasNextPage={species.next_page_url !== null}
+                            hasPreviousPage={species.prev_page_url !== null}
+                            page={currentPage}
+                            totalPages={species.last_page}
+                            onPreviousPage={() => handlePageChange(currentPage - 1)}
+                            onNextPage={() => handlePageChange(currentPage + 1)}
+                        />
+                    )}
                 </>
             )}
         </Container >

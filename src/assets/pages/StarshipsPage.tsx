@@ -4,7 +4,7 @@ import { getStarships } from "../services/StarWarsAPI";
 import Container from "react-bootstrap/Container";
 import { Col, Row } from "react-bootstrap";
 import StarshipCard from "../components/StarshipCard";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import SearchForm from "../components/SearchForm";
 import PagePagination from "../components/PagePagination";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -63,13 +63,18 @@ const StarshipsPage = () => {
         <Container fluid className="d-flex flex-column align-items-center">
             <h2>Starships</h2>
 
-
             <SearchForm searchInput={searchInput} setSearchInput={setSearchInput} handleUserInput={handleUserInput} />
 
-
-            {starships && (
+            {starships && starships.total <= 0 ? (
+                <Container fluid>
+                    <p>No starships found</p>
+                    <Link to="/starships" role="button" className="back-button" >
+                        &laquo; Back to starships
+                    </Link>
+                </Container>
+            ) : (
                 <>
-                    {searchParamsQuery ? (
+                    {starships && searchParamsQuery ? (
                         <Container fluid>
                             <p>Showing results for your search of "{searchParamsQuery}"</p>
                             <Row className="justify-content-center">
@@ -82,6 +87,7 @@ const StarshipsPage = () => {
                         </Container>
 
                     ) : (
+
                         <Container fluid>
                             <Row className="justify-content-center">
                                 {starships && !searchParamsQuery && (
@@ -102,14 +108,16 @@ const StarshipsPage = () => {
                         <ErrorMessage message={error} />
                     )}
 
-                    <PagePagination
-                        hasNextPage={starships.next_page_url !== null}
-                        hasPreviousPage={starships.prev_page_url !== null}
-                        page={currentPage}
-                        totalPages={starships.last_page}
-                        onPreviousPage={() => handlePageChange(currentPage - 1)}
-                        onNextPage={() => handlePageChange(currentPage + 1)}
-                    />
+                    {starships && starships.total > 0 && (
+                        <PagePagination
+                            hasNextPage={starships.next_page_url !== null}
+                            hasPreviousPage={starships.prev_page_url !== null}
+                            page={currentPage}
+                            totalPages={starships.last_page}
+                            onPreviousPage={() => handlePageChange(currentPage - 1)}
+                            onNextPage={() => handlePageChange(currentPage + 1)}
+                        />
+                    )}
                 </>
             )}
         </Container >

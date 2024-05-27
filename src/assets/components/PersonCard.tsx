@@ -29,7 +29,7 @@ const PersonCard: React.FC<PersonCardProps> = ({ person }) => {
                         <ListGroup.Item>In {person.films_count} movies</ListGroup.Item>
                     </ListGroup>
                 </Container>
-                <Link to={`/person/${person.id}`} className='btn custom-button'>Read more</Link>
+                <Link to={`/people/${person.id}`} className='btn custom-button'>Read more</Link>
             </Card.Body>
         </Card>
     )

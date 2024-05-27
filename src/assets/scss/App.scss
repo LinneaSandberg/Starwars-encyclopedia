@@ -81,12 +81,11 @@ h2 {
     font-weight: bold;
     font-size: large;
     color: rgb(212, 204, 47);
-    text-shadow: #c5c5c5 1px 1px 1px;
+    text-shadow: #5f3ed7c8 1px 1px 1px;
     border-radius: 1rem;
 
     &:hover {
-        color: #2ad180;
-        text-shadow: #c5c5c5 1px 1px 1px;
+        color: #5f3ed7c8;
         transform: scale(1.1);
     }
 }
@@ -179,5 +178,15 @@ h2 {
 
 .search-form {
     width: 100%;
-    padding: 1rem 0;
+    // padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.custom-no-result {
+    font-size: 2rem;
+    color: #ffffff;
+}
+
+.custom {
+    padding: 0 4rem;
 }

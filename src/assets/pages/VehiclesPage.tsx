@@ -4,7 +4,7 @@ import { getVehicles } from "../services/StarWarsAPI";
 import Container from "react-bootstrap/Container";
 import { Col, Row } from "react-bootstrap";
 import VehicleCard from "../components/VehicleCard";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import SearchForm from "../components/SearchForm";
 import PagePagination from "../components/PagePagination";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -67,9 +67,16 @@ const VehiclesPage = () => {
 
             <SearchForm searchInput={searchInput} setSearchInput={setSearchInput} handleUserInput={handleUserInput} />
 
-            {vehicles && (
+            {vehicles && vehicles.total <= 0 ? (
+                <Container fluid>
+                    <p>No vehicles found</p>
+                    <Link to="/vehicles" role="button" className="back-button" >
+                        &laquo; Back to vehicles
+                    </Link>
+                </Container>
+            ) : (
                 <>
-                    {searchParamsQuery ? (
+                    {vehicles && searchParamsQuery ? (
                         <Container fluid>
                             <p>Showing results for your search of "{searchParamsQuery}"</p>
                             <Row className="justify-content-center">
@@ -102,14 +109,16 @@ const VehiclesPage = () => {
                         <ErrorMessage message={error} />
                     )}
 
-                    <PagePagination
-                        hasNextPage={vehicles.next_page_url !== null}
-                        hasPreviousPage={vehicles.prev_page_url !== null}
-                        page={currentPage}
-                        totalPages={vehicles.last_page}
-                        onPreviousPage={() => handlePageChange(currentPage - 1)}
-                        onNextPage={() => handlePageChange(currentPage + 1)}
-                    />
+                    {vehicles && vehicles.total > 0 && (
+                        <PagePagination
+                            hasNextPage={vehicles.next_page_url !== null}
+                            hasPreviousPage={vehicles.prev_page_url !== null}
+                            page={currentPage}
+                            totalPages={vehicles.last_page}
+                            onPreviousPage={() => handlePageChange(currentPage - 1)}
+                            onNextPage={() => handlePageChange(currentPage + 1)}
+                        />
+                    )}
                 </>
             )}
         </Container >

@@ -23,7 +23,7 @@ function App() {
     <div>
       <Navigation />
 
-      <div>
+      <div className="custom">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/films" element={<FilmsPage />} />

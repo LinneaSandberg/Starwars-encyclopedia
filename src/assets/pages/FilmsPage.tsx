@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { FilmsResponse } from "../types/StarWarsAPI";
 import { getFilms } from "../services/StarWarsAPI";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import { Col, Row } from "react-bootstrap";
 import FilmCard from "../components/FilmCard";
@@ -67,9 +67,16 @@ const FilmsPage = () => {
 
             <SearchForm searchInput={searchInput} setSearchInput={setSearchInput} handleUserInput={handleUserInput} />
 
-            {films && (
+            {films && films.total <= 0 ? (
+                <Container fluid>
+                    <p>No films found</p>
+                    <Link to="/films" role="button" className="back-button" >
+                        &laquo; Back to films
+                    </Link>
+                </Container>
+            ) : (
                 <>
-                    {searchParamsQuery ? (
+                    {films && searchParamsQuery ? (
                         <Container fluid>
                             <p>Showing results for your search of "{searchParamsQuery}"</p>
                             <Row className="justify-content-center">
@@ -82,6 +89,7 @@ const FilmsPage = () => {
                         </Container>
 
                     ) : (
+
                         <Container fluid>
                             <Row className="justify-content-center">
                                 {films && !searchParamsQuery && (
@@ -102,14 +110,16 @@ const FilmsPage = () => {
                         <ErrorMessage message={error} />
                     )}
 
-                    <PagePagination
-                        hasNextPage={films.next_page_url !== null}
-                        hasPreviousPage={films.prev_page_url !== null}
-                        page={currentPage}
-                        totalPages={films.last_page}
-                        onPreviousPage={() => handlePageChange(currentPage - 1)}
-                        onNextPage={() => handlePageChange(currentPage + 1)}
-                    />
+                    {films && films.total > 0 && (
+                        <PagePagination
+                            hasNextPage={films.next_page_url !== null}
+                            hasPreviousPage={films.prev_page_url !== null}
+                            page={currentPage}
+                            totalPages={films.last_page}
+                            onPreviousPage={() => handlePageChange(currentPage - 1)}
+                            onNextPage={() => handlePageChange(currentPage + 1)}
+                        />
+                    )}
 
                 </>
             )}
