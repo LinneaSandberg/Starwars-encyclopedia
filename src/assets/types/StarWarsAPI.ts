@@ -210,7 +210,7 @@ export interface Vehicle {
 	films: Film[];
 }
 
-export interface Link {
+interface Link {
 	url: string | null;
 	label: string;
 	active: boolean;

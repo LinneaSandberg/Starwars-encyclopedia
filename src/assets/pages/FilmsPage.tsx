@@ -62,7 +62,7 @@ const FilmsPage = () => {
 
 
     return (
-        <Container fluid className="d-flex flex-column align-items-center">
+        <Container fluid className="d-flex flex-column align-items-center custom">
             <h2>Films</h2>
 
             <SearchForm searchInput={searchInput} setSearchInput={setSearchInput} handleUserInput={handleUserInput} />
@@ -78,7 +78,7 @@ const FilmsPage = () => {
                 <>
                     {films && searchParamsQuery ? (
                         <Container fluid>
-                            <p>Showing results for your search of "{searchParamsQuery}"</p>
+                            <p className="custom-searchresult-text">Showing {films.total > 1 ? (`results for your search of "${searchParamsQuery}"`) : (`result for your search of "${searchParamsQuery}"`)}</p>
                             <Row className="justify-content-center">
                                 {films.data.map(film => (
                                     <Col key={film.id} xs={12} sm={6} md={4} lg={3} className="mb-3 d-flex justify-content-center">

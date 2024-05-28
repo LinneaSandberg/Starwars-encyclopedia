@@ -28,7 +28,7 @@ const FilmPage = () => {
 
     return (
 
-        <Container fluid>
+        <Container fluid className="custom">
             {film && (
                 <Card className="mt-4 mb-4">
                     <Card.Header as="h5">{film.title}</Card.Header>

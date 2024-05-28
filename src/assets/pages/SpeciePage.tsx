@@ -26,7 +26,7 @@ const SpeciePage = () => {
     }, []);
 
     return (
-        <Container fluid>
+        <Container fluid className="custom">
             {specie && (
                 <Card className="mt-4 mb-4">
                     <Card.Header as="h5">{specie.name}</Card.Header>
@@ -63,6 +63,9 @@ const SpeciePage = () => {
                                 ))}
                             </ul>
                         </Container>
+                        <Link to="/species" role="button" className="back-button" >
+                            &laquo; Back
+                        </Link>
                     </Card.Body>
                 </Card>
             )}

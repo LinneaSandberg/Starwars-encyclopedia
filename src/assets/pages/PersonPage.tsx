@@ -26,7 +26,7 @@ const PersonPage = () => {
     }, []);
 
     return (
-        <Container fluid>
+        <Container fluid className="custom">
             {person && (
                 <Card className="mt-4 mb-4">
                     <Card.Header as="h5">{person.name}</Card.Header>
@@ -81,6 +81,9 @@ const PersonPage = () => {
                                 </ul>
                             </Container>
                         )}
+                        <Link to="/people" role="button" className="back-button" >
+                            &laquo; Back
+                        </Link>
                     </Card.Body>
                 </Card>
             )}

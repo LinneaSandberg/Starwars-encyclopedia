@@ -26,7 +26,7 @@ const PlanetPage = () => {
     }, []);
 
     return (
-        <Container fluid>
+        <Container fluid className="custom">
             {planet && (
                 <Card className="mt-4 mb-4">
                     <Card.Header as="h5">{planet.name}</Card.Header>
@@ -59,6 +59,9 @@ const PlanetPage = () => {
                                 </ul>
                             </Container>
                         )}
+                        <Link to="/planets" role="button" className="back-button" >
+                            &laquo; Back
+                        </Link>
                     </Card.Body>
                 </Card>
             )}

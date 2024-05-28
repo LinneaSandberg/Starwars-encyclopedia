@@ -26,7 +26,7 @@ const StarshipPage = () => {
     }, []);
 
     return (
-        <Container fluid>
+        <Container fluid className="custom">
             {starships && (
                 <Card className="mt-4 mb-4">
                     <Card.Header as="h5">{starships.name}</Card.Header>
@@ -63,6 +63,9 @@ const StarshipPage = () => {
                                 </ul>
                             </Container>
                         )}
+                        <Link to="/starships" role="button" className="back-button" >
+                            &laquo; Back
+                        </Link>
                     </Card.Body>
                 </Card>
             )}

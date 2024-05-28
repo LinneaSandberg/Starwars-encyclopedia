@@ -26,7 +26,7 @@ const VehiclePage = () => {
 
 
     return (
-        <Container fluid>
+        <Container fluid className="custom">
             {vehicle && (
                 <Card className="mt-4 mb-4">
                     <Card.Header as="h5">{vehicle.name}</Card.Header>
@@ -61,6 +61,9 @@ const VehiclePage = () => {
                                 </ul>
                             </Container>
                         )}
+                        <Link to="/vehicles" role="button" className="back-button" >
+                            &laquo; Back
+                        </Link>
                     </Card.Body>
                 </Card>
             )}

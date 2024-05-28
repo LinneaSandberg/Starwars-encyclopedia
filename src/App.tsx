@@ -20,28 +20,27 @@ import StarshipPage from "./assets/pages/StarshipPage";
 
 function App() {
   return (
-    <div>
+    <div id="App">
       <Navigation />
 
-      <div className="custom">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/films" element={<FilmsPage />} />
-          <Route path="/films/:id" element={<FilmPage />} />
-          <Route path="/people" element={<PeoplePage />} />
-          <Route path="/people/:id" element={<PersonPage />} />
-          <Route path="/planets" element={<PlanetsPage />} />
-          <Route path="/planets/:id" element={<PlanetPage />} />
-          <Route path="/species" element={<SpeciesPage />} />
-          <Route path="/species/:id" element={<SpeciePage />} />
-          <Route path="/starships" element={<StarshipsPage />} />
-          <Route path="/starships/:id" element={<StarshipPage />} />
-          <Route path="/vehicles" element={<VehiclesPage />} />
-          <Route path="/vehicles/:id" element={<VehiclePage />} />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/films" element={<FilmsPage />} />
+        <Route path="/films/:id" element={<FilmPage />} />
+        <Route path="/people" element={<PeoplePage />} />
+        <Route path="/people/:id" element={<PersonPage />} />
+        <Route path="/planets" element={<PlanetsPage />} />
+        <Route path="/planets/:id" element={<PlanetPage />} />
+        <Route path="/species" element={<SpeciesPage />} />
+        <Route path="/species/:id" element={<SpeciePage />} />
+        <Route path="/starships" element={<StarshipsPage />} />
+        <Route path="/starships/:id" element={<StarshipPage />} />
+        <Route path="/vehicles" element={<VehiclesPage />} />
+        <Route path="/vehicles/:id" element={<VehiclePage />} />
 
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </div>
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+
 
 
     </div>

@@ -3,7 +3,9 @@ import Spinner from 'react-bootstrap/Spinner'
 const LoadingSpinner = () => {
     return (
         <>
-            <Spinner animation="grow" variant="warning" className='mt-2' />
+            <Spinner animation="grow" className='loading-spinner'>
+                <span className="visually-hidden">Loading...</span>
+            </Spinner>
         </>
     )
 }
