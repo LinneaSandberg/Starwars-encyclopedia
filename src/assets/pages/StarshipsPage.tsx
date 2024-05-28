@@ -36,7 +36,7 @@ const StarshipsPage = () => {
             if (err instanceof Error) {
                 setError(err.message);
             } else {
-                setError('An error occurred');
+                setError('An unexpected error has occurred. Please try again later.');
             }
         }
         setLoading(false);
