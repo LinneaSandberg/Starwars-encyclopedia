@@ -6,12 +6,10 @@ import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Card from "react-bootstrap/Card";
 
-
 const SpeciePage = () => {
     const [specie, setSpecie] = useState<Specie | null>(null);
     const { id } = useParams();
     const specieId = Number(id);
-
 
     const getSingleSpecie = async (id: number) => {
         setSpecie(null);
@@ -70,8 +68,6 @@ const SpeciePage = () => {
                 </Card>
             )}
         </Container>
-
-
     )
 }
 

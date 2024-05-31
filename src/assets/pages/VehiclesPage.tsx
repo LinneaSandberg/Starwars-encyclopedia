@@ -10,7 +10,6 @@ import PagePagination from "../components/PagePagination";
 import LoadingSpinner from "../components/LoadingSpinner";
 import ErrorMessage from "../components/ErrorMessage";
 
-
 const VehiclesPage = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | false>(false);
@@ -18,10 +17,9 @@ const VehiclesPage = () => {
     const [searchInput, setSearchInput] = useState('');
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const searchParamsQuery = searchParams.get("search");
+    const searchParamsQuery = searchParams.get("search") ?? '';
     const currentPageQuery = searchParams.get("page") || '1';
     const currentPage = Number(currentPageQuery);
-
 
     const getAllVerhicles = async (page: number, query: string) => {
         setError(false);
@@ -39,7 +37,6 @@ const VehiclesPage = () => {
                 setError('An unexpected error has occurred. Please try again later.');
             }
         }
-
         setLoading(false);
     }
 
@@ -52,18 +49,16 @@ const VehiclesPage = () => {
     }
 
     const handlePageChange = (page: number) => {
-        setSearchParams({ search: searchParamsQuery || '', page: String(page) });
+        setSearchParams({ search: searchParamsQuery, page: String(page) });
     };
 
     useEffect(() => {
-        getAllVerhicles(currentPage, searchParamsQuery ?? '');
+        getAllVerhicles(currentPage, searchParamsQuery);
     }, [searchParamsQuery, currentPage]);
-
 
     return (
         <Container fluid className="d-flex flex-column align-items-center custom">
             <h2>Vehicles</h2>
-
 
             <SearchForm searchInput={searchInput} setSearchInput={setSearchInput} handleUserInput={handleUserInput} />
 

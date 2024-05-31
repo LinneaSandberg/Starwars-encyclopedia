@@ -1,7 +1,6 @@
 import React from "react";
 import Container from "react-bootstrap/Container";
 
-
 interface ErrorMessageProps {
     message: string;
 }

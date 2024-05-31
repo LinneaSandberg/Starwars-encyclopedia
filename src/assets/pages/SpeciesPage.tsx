@@ -10,7 +10,6 @@ import PagePagination from "../components/PagePagination";
 import LoadingSpinner from "../components/LoadingSpinner";
 import ErrorMessage from "../components/ErrorMessage";
 
-
 const SpeciesPage = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | false>(false);
@@ -18,7 +17,7 @@ const SpeciesPage = () => {
     const [searchInput, setSearchInput] = useState('');
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const searchParamsQuery = searchParams.get("search");
+    const searchParamsQuery = searchParams.get("search") ?? '';
     const currentPageQuery = searchParams.get("page") || '1';
     const currentPage = Number(currentPageQuery);
 
@@ -51,11 +50,11 @@ const SpeciesPage = () => {
     }
 
     const handlePageChange = (page: number) => {
-        setSearchParams({ search: searchParamsQuery || '', page: String(page) });
+        setSearchParams({ search: searchParamsQuery, page: String(page) });
     };
 
     useEffect(() => {
-        getAllSpecies(currentPage, searchParamsQuery ?? '');
+        getAllSpecies(currentPage, searchParamsQuery);
     }, [searchParamsQuery, currentPage]);
 
 
@@ -72,7 +71,6 @@ const SpeciesPage = () => {
                         &laquo; Back to species
                     </Link>
                 </Container>
-
             ) : (
                 <>
                     {species && searchParamsQuery ? (

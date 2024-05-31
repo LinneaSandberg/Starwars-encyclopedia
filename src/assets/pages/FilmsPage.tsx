@@ -10,7 +10,6 @@ import PagePagination from "../components/PagePagination";
 import LoadingSpinner from "../components/LoadingSpinner";
 import ErrorMessage from "../components/ErrorMessage";
 
-
 const FilmsPage = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | false>(false);
@@ -18,10 +17,9 @@ const FilmsPage = () => {
     const [searchInput, setSearchInput] = useState('');
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const searchParamsQuery = searchParams.get("search");
+    const searchParamsQuery = searchParams.get("search") ?? '';
     const currentPageQuery = searchParams.get("page") || '1';
     const currentPage = Number(currentPageQuery);
-
 
     const getAllFilms = async (page: number, query: string) => {
         setError(false);
@@ -43,7 +41,6 @@ const FilmsPage = () => {
         setLoading(false);
     }
 
-
     const handleUserInput = (e: React.FormEvent) => {
         e.preventDefault();
         const trimmedSearch = searchInput.trim();
@@ -53,13 +50,12 @@ const FilmsPage = () => {
     }
 
     const handlePageChange = (page: number) => {
-        setSearchParams({ search: searchParamsQuery || '', page: String(page) });
+        setSearchParams({ search: searchParamsQuery, page: String(page) });
     };
 
     useEffect(() => {
-        getAllFilms(currentPage, searchParamsQuery ?? '');
+        getAllFilms(currentPage, searchParamsQuery);
     }, [searchParamsQuery, currentPage]);
-
 
     return (
         <Container fluid className="d-flex flex-column align-items-center custom">
@@ -101,7 +97,6 @@ const FilmsPage = () => {
                                 )}
                             </Row>
                         </Container>
-
                     )}
 
                     {loading && <LoadingSpinner />}

@@ -6,8 +6,6 @@ import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Card from "react-bootstrap/Card";
 
-
-
 const PlanetPage = () => {
     const [planet, setPlanet] = useState<Planet | null>(null);
     const { id } = useParams();

@@ -6,7 +6,6 @@ import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Card from "react-bootstrap/Card";
 
-
 const VehiclePage = () => {
     const [vehicle, setVehicle] = useState<Vehicle | null>(null);
     const { id } = useParams();
@@ -23,7 +22,6 @@ const VehiclePage = () => {
     useEffect(() => {
         getSingleVehicle(vehicleId);
     }, []);
-
 
     return (
         <Container fluid className="custom">

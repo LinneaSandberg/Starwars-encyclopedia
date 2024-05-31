@@ -6,6 +6,23 @@
     box-sizing: border-box;
 }
 
+#App {
+    background-image: url("https://media.giphy.com/media/9bTjZrytydVRK/giphy.gif");
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    max-height: fit-content;
+}
+
+.navbar-nav .dropdown-menu {
+    display: none;
+}
+
+.navbar-nav .dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+}
+
 .navbar {
     color: white;
     width: 100%;
@@ -14,6 +31,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
+
 
     h1 {
         font-size: 2.5rem;
@@ -117,38 +135,70 @@ h2 {
     }
 }
 
-.homepage-giphy {
-    width: 100%;
-    height: 0;
-    padding-bottom: 56%;
-    position: relative;
-    overflow: hidden;
+.homepage-wrapper {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
 
 
-    img {
-        position: absolute;
-        width: 50vw;
-        height: 100%;
+    .homepage-giphy {
+        width: 100%;
+        height: 0;
+        padding-bottom: 56%;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: row;
+
+        img {
+            position: absolute;
+            width: 50vw;
+            height: 100%;
+        }
+
+        .overlay-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            font-weight: bolder;
+            color: #5f3ed7;
+            text-shadow: #ffffff 1px 1px 1px;
+            text-align: center;
+            z-index: 1;
+        }
     }
 
-    .homepage-list-container {
-        position: absolute;
-        width: 50vw;
-        height: 100%;
+    .homepage-info {
+        width: 100%;
+        background-color: rgba(255, 255, 255, 0.694);
+
+        div {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            margin: 0 5rem;
+        }
     }
 
-    .overlay-text {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 2rem;
-        font-weight: bolder;
-        color: #5f3ed7;
-        text-shadow: #ffffff 1px 1px 1px;
+    .homepage-text-wrapper {
         text-align: center;
+        padding: 2rem;
+
+        color: yellow;
+        font-size: medium;
+        margin: 1rem 3rem;
+    }
+
+    .homepage-links {
+        font-size: xx-small;
+        background-color: rgba(255, 255, 255, 0);
+        color: #5f3ed7;
+        border: none;
     }
 }
 
@@ -188,7 +238,7 @@ h2 {
     color: rgb(250, 240, 50);
 }
 
-.wrapper-404 {
+.wrapper-giphy {
     display: flex;
     width: 100vw;
     height: 100vh;
@@ -196,7 +246,7 @@ h2 {
     overflow: hidden;
 }
 
-.img-404 {
+.img-custom {
     position: absolute;
     top: 0;
     left: 0;
@@ -224,4 +274,41 @@ h3 {
     font-size: 1rem;
     color: #ffffff;
     margin-bottom: 1.5rem;
+}
+
+.pagination-container {
+    margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+    .homepage-wrapper {
+        .homepage-links {
+            font-size: medium;
+        }
+
+        .homepage-text-wrapper {
+            text-align: center;
+            padding: 4.5rem;
+
+            font-size: larger;
+            margin: 0 5rem;
+        }
+
+        .homepage-info {
+            div {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-evenly;
+                margin: 0 5rem;
+            }
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    .homepage-wrapper {
+        .homepage-links {
+            font-size: large;
+        }
+    }
 }

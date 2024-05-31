@@ -9,10 +9,7 @@ interface PersonCardProps {
     person: Person;
 }
 
-<Card.Img className="custom-img" variant="top" src="https://placedog.net/400" />
-
 const PersonCard: React.FC<PersonCardProps> = ({ person }) => {
-
     return (
         <Card className='card-border card-collection mb-4' style={{ width: "20rem" }}>
             <Card.Header as="h5">{person.name}</Card.Header>

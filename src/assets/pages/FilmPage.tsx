@@ -6,7 +6,6 @@ import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Card from "react-bootstrap/Card";
 
-
 const FilmPage = () => {
     const [film, setFilm] = useState<Film | null>(null);
     const { id } = useParams();
@@ -24,10 +23,7 @@ const FilmPage = () => {
         getSingleFilm(filmId);
     }, []);
 
-
-
     return (
-
         <Container fluid className="custom">
             {film && (
                 <Card className="mt-4 mb-4">

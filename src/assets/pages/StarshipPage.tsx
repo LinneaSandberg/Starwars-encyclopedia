@@ -6,8 +6,6 @@ import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Card from "react-bootstrap/Card";
 
-
-
 const StarshipPage = () => {
     const [starships, setStarship] = useState<Starship | null>(null);
     const { id } = useParams();

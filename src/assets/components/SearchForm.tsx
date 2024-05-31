@@ -2,7 +2,6 @@ import React from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
-
 interface SearchFormProps {
     searchInput: string;
     setSearchInput: (searchInput: string) => void;
@@ -10,9 +9,6 @@ interface SearchFormProps {
 }
 
 const SearchForm: React.FC<SearchFormProps> = ({ searchInput, setSearchInput, handleUserInput }) => {
-
-
-
     return (
         <Form className='search-form' onSubmit={handleUserInput}>
             <Form.Group controlId='searchQuery'>
@@ -32,7 +28,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ searchInput, setSearchInput, ha
                     className='custom-button'
                     type="submit"
                     variant="secondary"
-                    disabled={searchInput.length === 0}
+                    disabled={searchInput.trim().length === 0}
                 >
                     Search
                 </Button>

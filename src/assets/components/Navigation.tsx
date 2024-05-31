@@ -12,12 +12,14 @@ const Navigation = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <NavDropdown.Item className="m-1" as={Link} to="/films">Films</NavDropdown.Item>
-                        <NavDropdown.Item className="m-1" as={Link} to="/people">People</NavDropdown.Item>
-                        <NavDropdown.Item className="m-1" as={Link} to="/planets">Planets</NavDropdown.Item>
-                        <NavDropdown.Item className="m-1" as={Link} to="/species">Species</NavDropdown.Item>
-                        <NavDropdown.Item className="m-1" as={Link} to="/starships">Starships</NavDropdown.Item>
-                        <NavDropdown.Item className="m-1" as={Link} to="/vehicles">Vehicles</NavDropdown.Item>
+                        <NavDropdown title="Categories" id="dropdown-navbar">
+                            <NavDropdown.Item className="m-1" as={Link} to="/films">Films</NavDropdown.Item>
+                            <NavDropdown.Item className="m-1" as={Link} to="/people">People</NavDropdown.Item>
+                            <NavDropdown.Item className="m-1" as={Link} to="/planets">Planets</NavDropdown.Item>
+                            <NavDropdown.Item className="m-1" as={Link} to="/species">Species</NavDropdown.Item>
+                            <NavDropdown.Item className="m-1" as={Link} to="/starships">Starships</NavDropdown.Item>
+                            <NavDropdown.Item className="m-1" as={Link} to="/vehicles">Vehicles</NavDropdown.Item>
+                        </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

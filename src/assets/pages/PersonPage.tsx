@@ -6,8 +6,6 @@ import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Card from "react-bootstrap/Card";
 
-
-
 const PersonPage = () => {
     const [person, setPerson] = useState<Person | null>(null);
     const { id } = useParams();
