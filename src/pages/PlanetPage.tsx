@@ -21,7 +21,7 @@ const PlanetPage = () => {
 
     useEffect(() => {
         getSinglePlanet(planetId);
-    }, []);
+    }, [planetId]);
 
     return (
         <Container fluid className="custom">

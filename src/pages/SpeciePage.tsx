@@ -21,7 +21,7 @@ const SpeciePage = () => {
 
     useEffect(() => {
         getSingleSpecie(specieId);
-    }, []);
+    }, [specieId]);
 
     return (
         <Container fluid className="custom">

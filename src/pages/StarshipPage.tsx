@@ -21,7 +21,7 @@ const StarshipPage = () => {
 
     useEffect(() => {
         getSingleStarship(starshipId)
-    }, []);
+    }, [starshipId]);
 
     return (
         <Container fluid className="custom">

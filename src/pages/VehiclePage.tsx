@@ -21,7 +21,7 @@ const VehiclePage = () => {
 
     useEffect(() => {
         getSingleVehicle(vehicleId);
-    }, []);
+    }, [vehicleId]);
 
     return (
         <Container fluid className="custom">

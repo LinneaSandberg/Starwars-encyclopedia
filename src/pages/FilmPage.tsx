@@ -21,7 +21,7 @@ const FilmPage = () => {
 
     useEffect(() => {
         getSingleFilm(filmId);
-    }, []);
+    }, [filmId]);
 
     return (
         <Container fluid className="custom">

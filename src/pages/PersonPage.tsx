@@ -21,7 +21,7 @@ const PersonPage = () => {
 
     useEffect(() => {
         getSinglePerson(personId);
-    }, []);
+    }, [personId]);
 
     return (
         <Container fluid className="custom">
