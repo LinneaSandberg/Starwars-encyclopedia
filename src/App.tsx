@@ -1,20 +1,20 @@
 import { Routes, Route } from "react-router-dom";
 import "./assets/scss/App.scss";
-import Navigation from "./assets/components/Navigation";
-import FilmsPage from "./assets/pages/FilmsPage";
-import HomePage from "./assets/pages/HomePage";
-import PlanetsPage from "./assets/pages/PlanetsPage";
-import SpeciesPage from "./assets/pages/SpeciesPage";
-import StarshipsPage from "./assets/pages/StarshipsPage";
-import VehiclesPage from "./assets/pages/VehiclesPage";
-import NotFoundPage from "./assets/pages/NotFoundPage";
-import FilmPage from "./assets/pages/FilmPage";
-import PersonPage from "./assets/pages/PersonPage";
-import PeoplePage from "./assets/pages/PeoplePage";
-import PlanetPage from "./assets/pages/PlanetPage";
-import VehiclePage from "./assets/pages/VehiclePage";
-import SpeciePage from "./assets/pages/SpeciePage";
-import StarshipPage from "./assets/pages/StarshipPage";
+import Navigation from "./components/Navigation";
+import FilmsPage from "./pages/FilmsPage";
+import HomePage from "./pages/HomePage";
+import PlanetsPage from "./pages/PlanetsPage";
+import SpeciesPage from "./pages/SpeciesPage";
+import StarshipsPage from "./pages/StarshipsPage";
+import VehiclesPage from "./pages/VehiclesPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import FilmPage from "./pages/FilmPage";
+import PersonPage from "./pages/PersonPage";
+import PeoplePage from "./pages/PeoplePage";
+import PlanetPage from "./pages/PlanetPage";
+import VehiclePage from "./pages/VehiclePage";
+import SpeciePage from "./pages/SpeciePage";
+import StarshipPage from "./pages/StarshipPage";
 
 
 

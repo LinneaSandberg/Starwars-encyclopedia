@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Person } from "../types/StarWarsAPI";
 import { Link, useParams } from "react-router-dom";
-import { getPerson } from "../services/StarWarsAPI";
 import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Card from "react-bootstrap/Card";
+import { Person } from "../types/StarWarsAPI";
+import { getPerson } from "../services/StarWarsAPI";
 
 const PersonPage = () => {
     const [person, setPerson] = useState<Person | null>(null);

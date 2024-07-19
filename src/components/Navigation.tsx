@@ -8,7 +8,7 @@ const Navigation = () => {
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
             <Container fluid>
-                <Navbar.Brand className="h1">Star Wars</Navbar.Brand>
+                <Navbar.Brand className="h1" as={Link} to={"/"}>Star Wars</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">

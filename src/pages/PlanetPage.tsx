@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Planet } from "../types/StarWarsAPI";
 import { Link, useParams } from "react-router-dom";
-import { getPlanet } from "../services/StarWarsAPI";
 import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Card from "react-bootstrap/Card";
+import { Planet } from "../types/StarWarsAPI";
+import { getPlanet } from "../services/StarWarsAPI";
 
 const PlanetPage = () => {
     const [planet, setPlanet] = useState<Planet | null>(null);

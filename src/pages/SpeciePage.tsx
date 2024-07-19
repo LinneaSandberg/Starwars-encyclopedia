@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Specie } from "../types/StarWarsAPI";
 import { Link, useParams } from "react-router-dom";
-import { getSpecie } from "../services/StarWarsAPI";
 import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Card from "react-bootstrap/Card";
+import { Specie } from "../types/StarWarsAPI";
+import { getSpecie } from "../services/StarWarsAPI";
 
 const SpeciePage = () => {
     const [specie, setSpecie] = useState<Specie | null>(null);

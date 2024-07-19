@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
-import { FilmsResponse } from "../types/StarWarsAPI";
-import { getFilms } from "../services/StarWarsAPI";
-import { Link, useSearchParams } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import { Col, Row } from "react-bootstrap";
-import FilmCard from "../components/FilmCard";
+import StarshipCard from "../components/StarshipCard";
+import { Link, useSearchParams } from "react-router-dom";
 import SearchForm from "../components/SearchForm";
 import PagePagination from "../components/PagePagination";
 import LoadingSpinner from "../components/LoadingSpinner";
 import ErrorMessage from "../components/ErrorMessage";
+import { StarshipsResponse } from "../types/StarWarsAPI";
+import { getStarships } from "../services/StarWarsAPI";
 
-const FilmsPage = () => {
+const StarshipsPage = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | false>(false);
-    const [films, setFilms] = useState<FilmsResponse | null>(null);
+    const [starships, setStarships] = useState<StarshipsResponse | null>(null);
     const [searchInput, setSearchInput] = useState('');
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -21,16 +21,15 @@ const FilmsPage = () => {
     const currentPageQuery = searchParams.get("page") || '1';
     const currentPage = Number(currentPageQuery);
 
-    const getAllFilms = async (page: number, query: string) => {
+    const getAllStarships = async (page: number, query: string) => {
         setError(false);
         setLoading(true);
-        setFilms(null);
+        setStarships(null);
 
         try {
-            const data = await getFilms(page, query);
+            const data = await getStarships(page, query);
 
-            setFilms(data);
-
+            setStarships(data);
         } catch (err) {
             if (err instanceof Error) {
                 setError(err.message);
@@ -54,31 +53,31 @@ const FilmsPage = () => {
     };
 
     useEffect(() => {
-        getAllFilms(currentPage, searchParamsQuery);
+        getAllStarships(currentPage, searchParamsQuery);
     }, [searchParamsQuery, currentPage]);
 
     return (
         <Container fluid className="d-flex flex-column align-items-center custom">
-            <h2>Films</h2>
+            <h2>Starships</h2>
 
             <SearchForm searchInput={searchInput} setSearchInput={setSearchInput} handleUserInput={handleUserInput} />
 
-            {films && films.total <= 0 ? (
+            {starships && starships.total <= 0 ? (
                 <Container fluid>
-                    <p>No films found</p>
-                    <Link to="/films" role="button" className="back-button" >
-                        &laquo; Back to films
+                    <p>No starships found</p>
+                    <Link to="/starships" role="button" className="back-button" >
+                        &laquo; Back to starships
                     </Link>
                 </Container>
             ) : (
                 <>
-                    {films && searchParamsQuery ? (
+                    {starships && searchParamsQuery ? (
                         <Container fluid>
-                            <p className="custom-searchresult-text">Showing {films.total > 1 ? (`results for your search of "${searchParamsQuery}"`) : (`result for your search of "${searchParamsQuery}"`)}</p>
+                            <p className="custom-searchresult-text">Showing {starships.total > 1 ? (`results for your search of "${searchParamsQuery}"`) : (`result for your search of "${searchParamsQuery}"`)}</p>
                             <Row className="justify-content-center">
-                                {films.data.map(film => (
-                                    <Col key={film.id} xs={12} sm={6} md={4} lg={3} className="mb-3 d-flex justify-content-center">
-                                        <FilmCard key={film.id} film={film} />
+                                {starships.data.map(starship => (
+                                    <Col key={starship.id} xs={12} sm={6} md={4} lg={3} className="mb-3 d-flex justify-content-center">
+                                        <StarshipCard key={starship.id} starship={starship} />
                                     </Col>
                                 ))}
                             </Row>
@@ -88,10 +87,10 @@ const FilmsPage = () => {
 
                         <Container fluid>
                             <Row className="justify-content-center">
-                                {films && !searchParamsQuery && (
-                                    films.data.map(film => (
-                                        <Col key={film.id} xs={12} sm={6} md={4} lg={3} className="mb-3 d-flex justify-content-center">
-                                            <FilmCard key={film.id} film={film} />
+                                {starships && !searchParamsQuery && (
+                                    starships.data.map(starship => (
+                                        <Col key={starship.id} xs={12} sm={6} md={4} lg={3} className="mb-3 d-flex justify-content-center">
+                                            <StarshipCard key={starship.id} starship={starship} />
                                         </Col>
                                     ))
                                 )}
@@ -105,21 +104,20 @@ const FilmsPage = () => {
                         <ErrorMessage message={error} />
                     )}
 
-                    {films && films.total > 0 && (
+                    {starships && starships.total > 0 && (
                         <PagePagination
-                            hasNextPage={films.next_page_url !== null}
-                            hasPreviousPage={films.prev_page_url !== null}
+                            hasNextPage={starships.next_page_url !== null}
+                            hasPreviousPage={starships.prev_page_url !== null}
                             page={currentPage}
-                            totalPages={films.last_page}
+                            totalPages={starships.last_page}
                             onPreviousPage={() => handlePageChange(currentPage - 1)}
                             onNextPage={() => handlePageChange(currentPage + 1)}
                         />
                     )}
-
                 </>
             )}
-        </Container>
-    );
+        </Container >
+    )
 }
 
-export default FilmsPage;
+export default StarshipsPage;

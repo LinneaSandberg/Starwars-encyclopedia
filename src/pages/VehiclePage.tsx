@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Vehicle } from "../types/StarWarsAPI";
 import { Link, useParams } from "react-router-dom";
-import { getVehicle } from "../services/StarWarsAPI";
 import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Card from "react-bootstrap/Card";
+import { Vehicle } from "../types/StarWarsAPI";
+import { getVehicle } from "../services/StarWarsAPI";
 
 const VehiclePage = () => {
     const [vehicle, setVehicle] = useState<Vehicle | null>(null);

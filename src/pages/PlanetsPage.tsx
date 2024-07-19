@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
-import { StarshipsResponse } from "../types/StarWarsAPI";
-import { getStarships } from "../services/StarWarsAPI";
 import Container from "react-bootstrap/Container";
 import { Col, Row } from "react-bootstrap";
-import StarshipCard from "../components/StarshipCard";
+import PlanetCard from "../components/PlanetCard";
 import { Link, useSearchParams } from "react-router-dom";
 import SearchForm from "../components/SearchForm";
 import PagePagination from "../components/PagePagination";
 import LoadingSpinner from "../components/LoadingSpinner";
 import ErrorMessage from "../components/ErrorMessage";
+import { PlanetsResponse } from "../types/StarWarsAPI";
+import { getPlanets } from "../services/StarWarsAPI";
 
-const StarshipsPage = () => {
+const PlanetsPage = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | false>(false);
-    const [starships, setStarships] = useState<StarshipsResponse | null>(null);
+    const [planets, setPlanets] = useState<PlanetsResponse | null>(null);
     const [searchInput, setSearchInput] = useState('');
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -21,15 +21,15 @@ const StarshipsPage = () => {
     const currentPageQuery = searchParams.get("page") || '1';
     const currentPage = Number(currentPageQuery);
 
-    const getAllStarships = async (page: number, query: string) => {
+    const getAllPlanets = async (page: number, query: string) => {
         setError(false);
         setLoading(true);
-        setStarships(null);
+        setPlanets(null);
 
         try {
-            const data = await getStarships(page, query);
+            const data = await getPlanets(page, query);
 
-            setStarships(data);
+            setPlanets(data);
         } catch (err) {
             if (err instanceof Error) {
                 setError(err.message);
@@ -53,31 +53,31 @@ const StarshipsPage = () => {
     };
 
     useEffect(() => {
-        getAllStarships(currentPage, searchParamsQuery);
+        getAllPlanets(currentPage, searchParamsQuery);
     }, [searchParamsQuery, currentPage]);
 
     return (
         <Container fluid className="d-flex flex-column align-items-center custom">
-            <h2>Starships</h2>
+            <h2>Planets</h2>
 
             <SearchForm searchInput={searchInput} setSearchInput={setSearchInput} handleUserInput={handleUserInput} />
 
-            {starships && starships.total <= 0 ? (
+            {planets && planets.total <= 0 ? (
                 <Container fluid>
-                    <p>No starships found</p>
-                    <Link to="/starships" role="button" className="back-button" >
-                        &laquo; Back to starships
+                    <p>No planets found</p>
+                    <Link to="/planets" role="button" className="back-button" >
+                        &laquo; Back to planets
                     </Link>
                 </Container>
             ) : (
                 <>
-                    {starships && searchParamsQuery ? (
+                    {planets && searchParamsQuery ? (
                         <Container fluid>
-                            <p className="custom-searchresult-text">Showing {starships.total > 1 ? (`results for your search of "${searchParamsQuery}"`) : (`result for your search of "${searchParamsQuery}"`)}</p>
+                            <p className="custom-searchresult-text">Showing {planets.total > 1 ? (`results for your search of "${searchParamsQuery}"`) : (`result for your search of "${searchParamsQuery}"`)}</p>
                             <Row className="justify-content-center">
-                                {starships.data.map(starship => (
-                                    <Col key={starship.id} xs={12} sm={6} md={4} lg={3} className="mb-3 d-flex justify-content-center">
-                                        <StarshipCard key={starship.id} starship={starship} />
+                                {planets.data.map(planet => (
+                                    <Col key={planet.id} xs={12} sm={6} md={4} lg={3} className="mb-3 d-flex justify-content-center">
+                                        <PlanetCard key={planet.id} planet={planet} />
                                     </Col>
                                 ))}
                             </Row>
@@ -87,10 +87,10 @@ const StarshipsPage = () => {
 
                         <Container fluid>
                             <Row className="justify-content-center">
-                                {starships && !searchParamsQuery && (
-                                    starships.data.map(starship => (
-                                        <Col key={starship.id} xs={12} sm={6} md={4} lg={3} className="mb-3 d-flex justify-content-center">
-                                            <StarshipCard key={starship.id} starship={starship} />
+                                {planets && !searchParamsQuery && (
+                                    planets.data.map(planet => (
+                                        <Col key={planet.id} xs={12} sm={6} md={4} lg={3} className="mb-3 d-flex justify-content-center">
+                                            <PlanetCard key={planet.id} planet={planet} />
                                         </Col>
                                     ))
                                 )}
@@ -104,20 +104,20 @@ const StarshipsPage = () => {
                         <ErrorMessage message={error} />
                     )}
 
-                    {starships && starships.total > 0 && (
+                    {planets && planets.total > 0 && (
                         <PagePagination
-                            hasNextPage={starships.next_page_url !== null}
-                            hasPreviousPage={starships.prev_page_url !== null}
+                            hasNextPage={planets.next_page_url !== null}
+                            hasPreviousPage={planets.prev_page_url !== null}
                             page={currentPage}
-                            totalPages={starships.last_page}
+                            totalPages={planets.last_page}
                             onPreviousPage={() => handlePageChange(currentPage - 1)}
                             onNextPage={() => handlePageChange(currentPage + 1)}
                         />
                     )}
                 </>
             )}
-        </Container >
+        </Container>
     )
 }
 
-export default StarshipsPage;
+export default PlanetsPage;

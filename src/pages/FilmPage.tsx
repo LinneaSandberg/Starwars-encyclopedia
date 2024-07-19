@@ -1,10 +1,10 @@
 import { Link, useParams } from "react-router-dom";
-import { Film } from "../types/StarWarsAPI";
 import { useEffect, useState } from "react";
-import { getFilm } from "../services/StarWarsAPI";
 import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Card from "react-bootstrap/Card";
+import { Film } from "../types/StarWarsAPI";
+import { getFilm } from "../services/StarWarsAPI";
 
 const FilmPage = () => {
     const [film, setFilm] = useState<Film | null>(null);

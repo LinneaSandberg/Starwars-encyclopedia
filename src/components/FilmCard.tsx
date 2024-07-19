@@ -1,9 +1,9 @@
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import React from 'react'
-import { Film } from '../types/StarWarsAPI';
 import Container from 'react-bootstrap/Container';
 import { Link } from 'react-router-dom';
+import { Film } from '../types/StarWarsAPI';
 
 interface FilmCardProps {
     film: Film;

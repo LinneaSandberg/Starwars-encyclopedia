@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Starship } from "../types/StarWarsAPI";
 import { Link, useParams } from "react-router-dom";
-import { getStarship } from "../services/StarWarsAPI";
 import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Card from "react-bootstrap/Card";
+import { Starship } from "../types/StarWarsAPI";
+import { getStarship } from "../services/StarWarsAPI";
 
 const StarshipPage = () => {
     const [starships, setStarship] = useState<Starship | null>(null);

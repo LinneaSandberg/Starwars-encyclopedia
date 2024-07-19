@@ -2,8 +2,8 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import React from 'react'
 import Container from 'react-bootstrap/Container';
-import { Planet } from '../types/StarWarsAPI';
 import { Link } from 'react-router-dom';
+import { Planet } from '../types/StarWarsAPI';
 
 interface PlanetCardProps {
     planet: Planet;

@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
-import { VehiclesResponse } from "../types/StarWarsAPI";
-import { getVehicles } from "../services/StarWarsAPI";
 import Container from "react-bootstrap/Container";
 import { Col, Row } from "react-bootstrap";
-import VehicleCard from "../components/VehicleCard";
+import PersonCard from "../components/PersonCard";
 import { Link, useSearchParams } from "react-router-dom";
 import SearchForm from "../components/SearchForm";
 import PagePagination from "../components/PagePagination";
 import LoadingSpinner from "../components/LoadingSpinner";
 import ErrorMessage from "../components/ErrorMessage";
+import { getPeople } from "../services/StarWarsAPI";
+import { PeopleResponse } from "../types/StarWarsAPI";
 
-const VehiclesPage = () => {
+const PeoplePage = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | false>(false);
-    const [vehicles, setVehicles] = useState<VehiclesResponse | null>(null);
+    const [people, setPeople] = useState<PeopleResponse | null>(null);
     const [searchInput, setSearchInput] = useState('');
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -21,15 +21,15 @@ const VehiclesPage = () => {
     const currentPageQuery = searchParams.get("page") || '1';
     const currentPage = Number(currentPageQuery);
 
-    const getAllVerhicles = async (page: number, query: string) => {
+    const getAllPeople = async (page: number, query: string) => {
         setError(false);
         setLoading(true);
-        setVehicles(null);
+        setPeople(null);
 
         try {
-            const data = await getVehicles(page, query);
+            const data = await getPeople(page, query);
 
-            setVehicles(data);
+            setPeople(data);
         } catch (err) {
             if (err instanceof Error) {
                 setError(err.message);
@@ -53,31 +53,31 @@ const VehiclesPage = () => {
     };
 
     useEffect(() => {
-        getAllVerhicles(currentPage, searchParamsQuery);
+        getAllPeople(currentPage, searchParamsQuery);
     }, [searchParamsQuery, currentPage]);
 
     return (
         <Container fluid className="d-flex flex-column align-items-center custom">
-            <h2>Vehicles</h2>
+            <h2>People</h2>
 
             <SearchForm searchInput={searchInput} setSearchInput={setSearchInput} handleUserInput={handleUserInput} />
 
-            {vehicles && vehicles.total <= 0 ? (
+            {people && people.total <= 0 ? (
                 <Container fluid>
-                    <p>No vehicles found</p>
-                    <Link to="/vehicles" role="button" className="back-button" >
-                        &laquo; Back to vehicles
+                    <p>No people found</p>
+                    <Link to="/people" role="button" className="back-button" >
+                        &laquo; Back to people
                     </Link>
                 </Container>
             ) : (
                 <>
-                    {vehicles && searchParamsQuery ? (
-                        <Container fluid>
-                            <p className="custom-searchresult-text">Showing {vehicles.total > 1 ? (`results for your search of "${searchParamsQuery}"`) : (`result for your search of "${searchParamsQuery}"`)}</p>
+                    {people && searchParamsQuery ? (
+                        <Container fluid >
+                            <p className="custom-searchresult-text">Showing {people.total > 1 ? (`results for your search of "${searchParamsQuery}"`) : (`result for your search of "${searchParamsQuery}"`)}</p>
                             <Row className="justify-content-center">
-                                {vehicles.data.map(vehicle => (
-                                    <Col key={vehicle.id} xs={12} sm={6} md={4} lg={3} className="mb-3 d-flex justify-content-center">
-                                        <VehicleCard key={vehicle.id} vehicle={vehicle} />
+                                {people.data.map(person => (
+                                    <Col key={person.id} xs={12} sm={6} md={4} lg={3} className="mb-3 d-flex justify-content-center">
+                                        <PersonCard key={person.id} person={person} />
                                     </Col>
                                 ))}
                             </Row>
@@ -87,10 +87,10 @@ const VehiclesPage = () => {
 
                         <Container fluid>
                             <Row className="justify-content-center">
-                                {vehicles && !searchParamsQuery && (
-                                    vehicles.data.map(vehicle => (
-                                        <Col key={vehicle.id} xs={12} sm={6} md={4} lg={3} className="mb-3 d-flex justify-content-center">
-                                            <VehicleCard key={vehicle.id} vehicle={vehicle} />
+                                {people && !searchParamsQuery && (
+                                    people.data.map(person => (
+                                        <Col key={person.id} xs={12} sm={6} md={4} lg={3} className="mb-3 d-flex justify-content-center">
+                                            <PersonCard key={person.id} person={person} />
                                         </Col>
                                     ))
                                 )}
@@ -104,20 +104,21 @@ const VehiclesPage = () => {
                         <ErrorMessage message={error} />
                     )}
 
-                    {vehicles && vehicles.total > 0 && (
+                    {people && people.total > 0 && (
                         <PagePagination
-                            hasNextPage={vehicles.next_page_url !== null}
-                            hasPreviousPage={vehicles.prev_page_url !== null}
+                            hasNextPage={people.next_page_url !== null}
+                            hasPreviousPage={people.prev_page_url !== null}
                             page={currentPage}
-                            totalPages={vehicles.last_page}
+                            totalPages={people.last_page}
                             onPreviousPage={() => handlePageChange(currentPage - 1)}
                             onNextPage={() => handlePageChange(currentPage + 1)}
                         />
                     )}
                 </>
             )}
-        </Container >
+        </Container>
     )
 }
 
-export default VehiclesPage;
+
+export default PeoplePage;
